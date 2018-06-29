@@ -33,6 +33,6 @@ module.exports.getAllSpecies = (callback) => {
     SpeciesGenes.find({}).select({ "short_name": 1, "long_name": 1, "taxon_id": 1, "_id": 0}).exec(callback);
 }
 
-module.exports.getAllGenesBySpecies = (species, callback) => {
-    SpeciesGenes.find({'short_name': species}).limit(1000).exec(callback);
+module.exports.getAllGenesBySpecies = (species, pageNo, size, callback) => {
+    SpeciesGenes.find({'short_name': species}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }

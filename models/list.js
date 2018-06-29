@@ -22,8 +22,8 @@ module.exports.getSpecies = (callback) => {
     GeneList.find().distinct('species').exec(callback);
 }
 
-module.exports.getListsBySpecies = (species, callback) => {
-    GeneList.find({'species': species}).limit(1000).exec(callback);
+module.exports.getListsBySpecies = (species, pageNo, size, callback) => {
+    GeneList.find({'species': species}, {sequence:0, _id:0, node:0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getGeneByPtn = (ptn, callback) => {
