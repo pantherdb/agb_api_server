@@ -46,7 +46,7 @@ router.get('/species/:species',(req,res) => {
                  }
                  else {
                     var totalPages = Math.ceil(totalCount / size);
-                    res.write(JSON.stringify({success: true, pages: totalPages, lists:lists},null,2));
+                    res.write(JSON.stringify({success: true, pages: totalPages, totalCount: totalCount, lists:lists},null,2));
                     res.end();
                 }
             })
