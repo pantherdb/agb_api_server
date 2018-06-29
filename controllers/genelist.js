@@ -35,17 +35,24 @@ router.get('/species/:species',(req,res) => {
     var species = req.params.species;
     var pageNo = parseInt(req.query.pageNo);
     var size = parseInt(req.query.size);
-    genelist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
+    genelist.getTotalGeneCountBySpecies(species, (err, totalCount)=> {
         if(err) {
-            res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
+            res.json({success:false, message: `Failed to get total gene counts. Error: ${err}`});
         }
         else {
-            res.write(JSON.stringify({success: true, lists:lists},null,2));
-            res.end();
-
-    }
+                genelist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
+                 if(err) {
+                      res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
+                 }
+                 else {
+                    var totalPages = Math.ceil(totalCount / size);
+                    res.write(JSON.stringify({success: true, pages: totalPages, lists:lists},null,2));
+                    res.end();
+                }
+            })
+        }
+        })
     });
-});
 
 /* router.get('/species/:species',(req,res) => {
     var spe = req.params.species;
