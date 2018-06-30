@@ -4,12 +4,16 @@ const mongoose = require('mongoose');
 //Define GenelistSchema
 
 const GenelistSchema = mongoose.Schema({
-    node: String,
     ptn: String,
     name: String,
     species: String,
     sequence: String,
-    type: String
+    event: String,
+    proxy_genes: {
+        proxy_org_short: String,
+        proxy_org_long: String,
+        proxy_gene: String,
+    }
 });
 const GeneList = module.exports = mongoose.model('GeneList', GenelistSchema );
 
