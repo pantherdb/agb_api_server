@@ -2,11 +2,12 @@
 const express = require('express');
 const router = express.Router();
 const genelist = require('../models/list');
+const short_genelist = require('../models/short_list');
 //const species = require('../models/species');
 
 //GET HTTP method to /genelist
 router.get('/',(req,res) => {
-    genelist.getAllLists((err, lists)=> {
+    short_genelist.getAllLists((err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
@@ -35,12 +36,12 @@ router.get('/species/:species',(req,res) => {
     var species = req.params.species;
     var pageNo = parseInt(req.query.pageNo);
     var size = parseInt(req.query.size);
-    genelist.getTotalGeneCountBySpecies(species, (err, totalCount)=> {
+    short_genelist.getTotalGeneCountBySpecies(species, (err, totalCount)=> {
         if(err) {
             res.json({success:false, message: `Failed to get total gene counts. Error: ${err}`});
         }
         else {
-                genelist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
+            short_genelist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
                  if(err) {
                       res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
                  }
