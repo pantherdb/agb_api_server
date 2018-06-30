@@ -15,7 +15,15 @@ const GenelistSchema = mongoose.Schema({
         proxy_gene: String,
     },
 });
+
+const ShortGenelistSchema = mongoose.Schema({
+    ptn: String,
+    name: String,
+    pthr: String,
+    proxy_genes: String,
+});
 const GeneList = module.exports = mongoose.model('GeneList', GenelistSchema );
+const ShortGeneList = module.exports = mongoose.model('ShortGeneList', ShortGenelistSchema );
 
 //GeneList.find() returns all the lists
 module.exports.getAllLists = (callback) => {
@@ -27,10 +35,10 @@ module.exports.getSpecies = (callback) => {
 }
 
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
-    GeneList.find({'species': species}).count({}).exec(callback);
+    ShortGeneList.find({'species': species}).count({}).exec(callback);
 }
 module.exports.getListsBySpecies = (species, pageNo, size, callback) => {
-    GeneList.find({'species': species}, {sequence:0, _id:0, event:0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+    ShortGeneList.find({'species': species}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 /* module.exports.getListsBySpecies = (species, callback) => {
@@ -42,7 +50,7 @@ module.exports.getGeneByPtn = (ptn, callback) => {
 }
 
 //newList.save is used to insert the document into MongoDB
-module.exports.addList = (newList, callback) => {
+/* module.exports.addList = (newList, callback) => {
     newList.save(callback);
 }
 
@@ -50,4 +58,4 @@ module.exports.addList = (newList, callback) => {
 module.exports.deleteListById = (id, callback) => {
     var query = {_id: id};
     GeneList.remove(query, callback);
-}
+} */
