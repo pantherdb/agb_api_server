@@ -31,7 +31,7 @@ router.get('/species',(req,res) => {
     });
 });
 
-/* router.get('/species/:species',(req,res) => {
+router.get('/species/:species',(req,res) => {
     var species = req.params.species;
     var pageNo = parseInt(req.query.pageNo);
     var size = parseInt(req.query.size);
@@ -45,15 +45,15 @@ router.get('/species',(req,res) => {
                       res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
                  }
                  else {
-                    var totalPages = Math.ceil(totalCount / size);
-                    res.write(JSON.stringify({success: true, pages: totalPages, totalCount: totalCount, lists:lists},null,2));
+                    //var totalPages = Math.ceil(totalCount / size);
+                    res.write(JSON.stringify({success: true, count: totalCount, lists:lists},null,2));
                     res.end();
                 }
             })
         }
         })
     });
- */
+
 /* router.get('/species/:species',(req,res) => {
     var spe = req.params.species;
     var pageNo = parseInt(req.query.pageNo);
@@ -70,7 +70,7 @@ router.get('/species',(req,res) => {
     });
 }); */
 
-router.get('/species/:species',(req,res) => {
+/* router.get('/species/:species',(req,res) => {
     var species = req.params.species;
     var pageNo = parseInt(req.query.pageNo);
     //var pageNo = 1;
@@ -86,7 +86,7 @@ router.get('/species/:species',(req,res) => {
             res.end();
         }
     })
-});
+}); */
 
 router.get('/gene/:ptn',(req,res) => {
     var ptn = req.params.ptn;
