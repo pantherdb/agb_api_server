@@ -18,9 +18,10 @@ const GenelistSchema = mongoose.Schema({
 
 const ShortGenelistSchema = mongoose.Schema({
     ptn: String,
+    species:String,
     name: String,
     pthr: String,
-    proxy_genes: String,
+    proxy_gene: String,
 });
 const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
 const ShortGeneList = module.exports = mongoose.model('gene_one_proxy_list', ShortGenelistSchema );
@@ -35,10 +36,10 @@ module.exports.getSpecies = (callback) => {
 }
 
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
-    GeneList.find({'species': species}).count({}).exec(callback);
+    ShortGeneList.find({'species': species}).count({}).exec(callback);
 }
 module.exports.getListsBySpecies = (species, pageNo, size, callback) => {
-    GeneList.find({'species': species}).skip(size*(pageNo-1)).limit(size).exec(callback);
+    ShortGeneList.find({'species': species}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 /* module.exports.getListsBySpecies = (species, callback) => {
