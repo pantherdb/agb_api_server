@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const genelist = require('../models/list');
-const species = require('../models/species');
+//const species = require('../models/species');
 
 //GET HTTP method to /genelist
 router.get('/',(req,res) => {

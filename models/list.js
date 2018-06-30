@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 //Define GenelistSchema
 
-const GenelistSchema = mongoose.Schema({
+/* const GenelistSchema = mongoose.Schema({
     ptn: String,
     name: String,
     species: String,
@@ -14,7 +14,7 @@ const GenelistSchema = mongoose.Schema({
         proxy_org_long: String,
         proxy_gene: String,
     },
-});
+}); */
 
 const ShortGenelistSchema = mongoose.Schema({
     ptn: String,
@@ -23,17 +23,17 @@ const ShortGenelistSchema = mongoose.Schema({
     pthr: String,
     proxy_gene: String,
 });
-const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
+//const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
 const ShortGeneList = module.exports = mongoose.model('gene_one_proxy_list', ShortGenelistSchema );
 
 //GeneList.find() returns all the lists
-module.exports.getAllLists = (callback) => {
+/* module.exports.getAllLists = (callback) => {
     GeneList.find(callback);
-}
+} */
 
-module.exports.getSpecies = (callback) => {
+/* module.exports.getSpecies = (callback) => {
     GeneList.find().distinct('species').exec(callback);
-}
+} */
 
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
     ShortGeneList.find({'species': species}).count({}).exec(callback);
@@ -46,9 +46,9 @@ module.exports.getListsBySpecies = (species, pageNo, size, callback) => {
     GeneList.find({'species': species}, {sequence:0, _id:0, event:0}).exec(callback);
 } */
 
-module.exports.getGeneByPtn = (ptn, callback) => {
+/* module.exports.getGeneByPtn = (ptn, callback) => {
     GeneList.find({'ptn': ptn}).exec(callback);
-}
+} */
 
 //newList.save is used to insert the document into MongoDB
 /* module.exports.addList = (newList, callback) => {
