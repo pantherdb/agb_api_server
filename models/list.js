@@ -23,7 +23,7 @@ const ShortGenelistSchema = mongoose.Schema({
     proxy_genes: String,
 });
 const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
-const ShortGeneList = module.exports = mongoose.model('gene_list_one_proxy', ShortGenelistSchema );
+const ShortGeneList = module.exports = mongoose.model('gene_one_proxy_list', ShortGenelistSchema );
 
 //GeneList.find() returns all the lists
 module.exports.getAllLists = (callback) => {
