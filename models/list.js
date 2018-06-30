@@ -13,7 +13,7 @@ const GenelistSchema = mongoose.Schema({
         proxy_org_short: String,
         proxy_org_long: String,
         proxy_gene: String,
-    }
+    },
 });
 const GeneList = module.exports = mongoose.model('GeneList', GenelistSchema );
 
