@@ -36,12 +36,12 @@ router.get('/species/:species',(req,res) => {
     var species = req.params.species;
     var pageNo = parseInt(req.query.pageNo);
     var size = parseInt(req.query.size);
-    short_genelist.getTotalGeneCountBySpecies(species, (err, totalCount)=> {
+    genelist.getTotalGeneCountBySpecies(species, (err, totalCount)=> {
         if(err) {
             res.json({success:false, message: `Failed to get total gene counts. Error: ${err}`});
         }
         else {
-            short_genelist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
+            genelist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
                  if(err) {
                       res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
                  }
