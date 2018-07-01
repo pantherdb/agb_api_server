@@ -55,11 +55,11 @@ router.get('/species/:species',(req,res) => {
         })
     });
 
-/* router.get('/species/:species',(req,res) => {
+router.get('/species/:species',(req,res) => {
     var spe = req.params.species;
-    var pageNo = parseInt(req.query.pageNo);
-    var size = parseInt(req.query.size);
-    species.getAllGenesBySpecies(spe, pageNo, size, (err, lists)=> {
+    var extantSpecies = parseInt(req.query.extantSpecies);
+    //var size = parseInt(req.query.size);
+    species.getAllGenesBySpecies(spe, extantSpecies, (err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
@@ -69,7 +69,7 @@ router.get('/species/:species',(req,res) => {
 
     }
     });
-}); */
+});
 
 /* router.get('/species/:species',(req,res) => {
     var species = req.params.species;
