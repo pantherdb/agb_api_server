@@ -59,7 +59,7 @@ router.get('/species/:species/:exspecies',(req,res) => {
     var spe = req.params.species;
     var exspe = req.params.exspecies;
     //var size = parseInt(req.query.size);
-    species.getListsByAncExtSpe(spe, exspe, (err, lists)=> {
+    genelist.getListsByAncExtSpe(spe, exspe, (err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
