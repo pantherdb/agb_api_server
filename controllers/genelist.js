@@ -55,11 +55,11 @@ router.get('/species/:species',(req,res) => {
         })
     });
 
-router.get('/species/:species',(req,res) => {
+router.get('/species/:species/:exspecies',(req,res) => {
     var spe = req.params.species;
-    var extantSpecies = parseInt(req.query.extantSpecies);
+    var exspe = req.params.exspecies;
     //var size = parseInt(req.query.size);
-    species.getAllGenesBySpecies(spe, extantSpecies, (err, lists)=> {
+    species.getListsByAncExtSpe(spe, exspe, (err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
