@@ -55,17 +55,18 @@ router.get('/species/:species',(req,res) => {
         })
     });
 
-router.get('/proxygenes/:species&:exspecies',(req,res) => {
+router.get('/proxygenes/:species/:exspecies',(req,res) => {
     var spe = req.params.species;
     var exspe = req.params.exspecies;
     //var size = parseInt(req.query.size);
-    console.log(spe);
-    console.log(exspe);
+    
     genelist.getListsByAncExtSpe(spe, exspe, (err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
         else {
+            console.log(spe);
+            console.log(exspe);
             res.write(JSON.stringify({success: true, lists:lists},null,2));
             res.end();
 
