@@ -55,7 +55,7 @@ router.get('/species/:species',(req,res) => {
         })
     });
 
-router.get('/:species/:exspecies',(req,res) => {
+router.get('/:species',(req,res) => {
     var spe = req.params.species;
     var exspe = req.params.exspecies;
     //var size = parseInt(req.query.size);
