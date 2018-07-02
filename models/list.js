@@ -9,11 +9,11 @@ const GenelistSchema = mongoose.Schema({
     species: String,
     sequence: String,
     event: String,
-    proxy_genes: {
+    proxy_genes: [{
         proxy_org_short: String,
         proxy_org_long: String,
         proxy_gene: String,
-    },
+    }],
 });
 
 const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
