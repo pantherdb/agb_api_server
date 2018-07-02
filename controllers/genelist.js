@@ -19,7 +19,7 @@ router.get('/',(req,res) => {
     });
 });
 
-router.get('/species',(req,res) => {
+/* router.get('/species',(req,res) => {
     species.getAllSpecies((err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
@@ -30,7 +30,7 @@ router.get('/species',(req,res) => {
 
     }
     });
-});
+}); */
 
 router.get('/species/:species',(req,res) => {
     var species = req.params.species;
@@ -55,7 +55,7 @@ router.get('/species/:species',(req,res) => {
         })
     });
 
-router.get('/proxygenes/:species/:exspecies',(req,res) => {
+router.get('/:species/:exspecies',(req,res) => {
     var spe = req.params.species;
     var exspe = req.params.exspecies;
     //var size = parseInt(req.query.size);
