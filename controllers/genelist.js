@@ -32,7 +32,7 @@ router.get('/',(req,res) => {
     });
 }); */
 
-router.get('/species/:species',(req,res) => {
+/* router.get('/species/:species',(req,res) => {
     var species = req.params.species;
     var pageNo = parseInt(req.query.pageNo);
     var size = parseInt(req.query.size);
@@ -53,16 +53,16 @@ router.get('/species/:species',(req,res) => {
             })
         }
         })
-    });
+    }); */
 
 
-/* router.get('/species/:species',(req,res) => {
+router.get('/species/:species',(req,res) => {
     var species = req.params.species;
     var pageNo = parseInt(req.query.pageNo);
     //var pageNo = 1;
     var size = parseInt(req.query.size);
     //var size = 100;
-    genelist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
+    shortlist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
@@ -72,7 +72,7 @@ router.get('/species/:species',(req,res) => {
             res.end();
         }
     })
-}); */
+});
 
 router.get('/gene/:ptn',(req,res) => {
     var ptn = req.params.ptn;
