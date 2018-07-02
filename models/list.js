@@ -35,9 +35,6 @@ module.exports.getListsBySpecies = (species, pageNo, size, callback) => {
     GeneList.find({'species': species}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
-module.exports.getListsByAncExtSpe = (species, exspecies, callback) => {
-    GeneList.find({'species': species, 'proxy_genes': {'proxy_org_short':exspecies}}).limit(10).exec(callback);
-}
 
 module.exports.getGeneByPtn = (ptn, callback) => {
     GeneList.find({'ptn': ptn}).exec(callback);

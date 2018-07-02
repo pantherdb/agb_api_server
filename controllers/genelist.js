@@ -55,24 +55,6 @@ router.get('/species/:species',(req,res) => {
         })
     });
 
-router.get('/:species/:exspecies',(req,res) => {
-    var spe = req.params.species;
-    var exspe = req.params.exspecies;
-    //var size = parseInt(req.query.size);
-    
-    genelist.getListsByAncExtSpe(spe, exspe, (err, lists)=> {
-        if(err) {
-            res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
-        }
-        else {
-            console.log(spe);
-            console.log(exspe);
-            res.write(JSON.stringify({success: true, lists:lists},null,2));
-            res.end();
-
-    }
-    });
-});
 
 /* router.get('/species/:species',(req,res) => {
     var species = req.params.species;
@@ -122,7 +104,7 @@ router.get('/gene/:ptn',(req,res) => {
 
 //POST HTTP method to /genelist
 
-router.post('/', (req,res,next) => {
+/* router.post('/', (req,res,next) => {
     console.log(req.body);
     var newList = new genelist({
         ptn: req.body.ptn,
@@ -156,5 +138,5 @@ router.delete('/:id', (req,res,next)=> {
           else
               res.json({success:false});
       })
-  });
+  }); */
   module.exports = router;
