@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const genelist = require('../models/list');
 const shortlist = require('../models/short_list');
-//const species = require('../models/species');
+const species = require('../models/species');
 
 //GET HTTP method to /genelist
 router.get('/',(req,res) => {
@@ -65,6 +65,20 @@ router.get('/species/:species',(req,res) => {
     shortlist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
+        }
+        else {
+            //var totalPages = Math.ceil(totalCount / size);
+            res.write(JSON.stringify({success: true, lists:lists},null,2));
+            res.end();
+        }
+    })
+});
+
+router.get('/species-info/:species',(req,res) => {
+    var species = req.params.species;
+    species.getSpeciesbyShort(species, (err, lists)=> {
+        if(err) {
+            res.json({success:false, message: `Failed to load species info. Error: ${err}`});
         }
         else {
             //var totalPages = Math.ceil(totalCount / size);
