@@ -7,7 +7,7 @@ const Species = require('../models/species');
 
 //GET HTTP method to /genelist
 router.get('/',(req,res) => {
-    shortlist.getAllLists((err, lists)=> {
+    genelist.getAllLists((err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
