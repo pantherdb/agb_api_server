@@ -21,7 +21,7 @@ const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
 
 //GeneList.find() returns all the lists
 module.exports.getAllLists = (callback) => {
-    GeneList.find(callback);
+    GeneList.find(callback).limit(20);
 }
 
 module.exports.getSpecies = (callback) => {
