@@ -58,9 +58,9 @@ router.get('/',(req,res) => {
 
 router.get('/species/:species',(req,res) => {
     var species = req.params.species;
-    var page = parseInt(req.query.pageNo);
+    var page = parseInt(req.query.page);
     //var pageNo = 1;
-    var limit = parseInt(req.query.size);
+    var limit = parseInt(req.query.limit);
     //var size = 100;
     shortlist.getListsBySpecies(species, page, limit, (err, lists)=> {
         if(err) {
