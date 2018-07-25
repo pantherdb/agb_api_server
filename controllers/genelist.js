@@ -32,31 +32,31 @@ router.get('/',(req,res) => {
     });
 }); */
 
-/* router.get('/species/:species',(req,res) => {
+router.get('/species/:species',(req,res) => {
     var species = req.params.species;
-    var pageNo = parseInt(req.query.pageNo);
-    var size = parseInt(req.query.size);
+    var page = parseInt(req.query.page);
+    var limit = parseInt(req.query.limit);
     shortlist.getTotalGeneCountBySpecies(species, (err, totalCount)=> {
         if(err) {
             res.json({success:false, message: `Failed to get total gene counts. Error: ${err}`});
         }
         else {
-            shortlist.getListsBySpecies(species, pageNo, size, (err, lists)=> {
+            shortlist.getListsBySpecies(species, page, limit, (err, lists)=> {
                  if(err) {
                       res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
                  }
                  else {
                     //var totalPages = Math.ceil(totalCount / size);
-                    res.write(JSON.stringify({success: true, count: totalCount, lists:lists},null,2));
+                    res.write(JSON.stringify({success: true, total: totalCount, lists:lists},null,2));
                     res.end();
                 }
             })
         }
         })
-    }); */
+    });
 
 
-router.get('/species/:species',(req,res) => {
+/* router.get('/species/:species',(req,res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     //var pageNo = 1;
@@ -72,7 +72,7 @@ router.get('/species/:species',(req,res) => {
             res.end();
         }
     })
-});
+}); */
 
 router.get('/species-info/:species',(req,res) => {
     var species = req.params.species;
