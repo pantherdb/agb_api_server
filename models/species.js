@@ -11,6 +11,7 @@ const SpeciesSchema = mongoose.Schema({
     common_name: String,
     conversion: String,
     timescale: String,
+    gene_count: String,
     parent: String
 });
 
