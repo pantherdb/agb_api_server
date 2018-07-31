@@ -9,7 +9,9 @@ const SpeciesSchema = mongoose.Schema({
     long_name: String,
     name: String,
     common_name: String,
-    conversion: String
+    conversion: String,
+    timescale: String,
+    parent: String
 });
 
 const Species = module.exports = mongoose.model('species', SpeciesSchema );
