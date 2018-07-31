@@ -88,7 +88,7 @@ router.get('/species-info/:species',(req,res) => {
     })
 });
 
-router.get('/species-list',(res) => {
+router.get('/species-list',(req,res) => {
     Species.getSpeciesList((err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load species list. Error: ${err}`});
