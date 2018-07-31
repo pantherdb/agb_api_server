@@ -22,5 +22,5 @@ module.exports.getSpeciesbyShort = (species, callback) => {
 }
 
 module.exports.getSpeciesList = (callback) => {
-    Species.find({},{'_id':0,'conversion':0}).exec(callback);
+    Species.find({},{'_id':0,'conversion':0,'common_name':0}).exec(callback);
 }
