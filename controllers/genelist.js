@@ -88,6 +88,19 @@ router.get('/species-info/:species',(req,res) => {
     })
 });
 
+router.get('/species-list',(res) => {
+    Species.getSpeciesList((err, lists)=> {
+        if(err) {
+            res.json({success:false, message: `Failed to load species list. Error: ${err}`});
+        }
+        else {
+            //var totalPages = Math.ceil(totalCount / size);
+            res.write(JSON.stringify({success: true, lists:lists},null,2));
+            res.end();
+        }
+    })
+});
+
 router.get('/gene/:ptn',(req,res) => {
     var ptn = req.params.ptn;
     genelist.getGeneByPtn(ptn, (err, lists)=> {

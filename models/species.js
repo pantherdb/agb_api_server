@@ -17,7 +17,10 @@ const SpeciesSchema = mongoose.Schema({
 
 const Species = module.exports = mongoose.model('species', SpeciesSchema );
 
-//GeneList.find() returns all the lists
 module.exports.getSpeciesbyShort = (species, callback) => {
     Species.find({'short_name': species}).exec(callback);
+}
+
+module.exports.getSpeciesList = (callback) => {
+    Species.find().exec(callback);
 }
