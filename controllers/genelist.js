@@ -80,6 +80,20 @@ router.get('/species/:species',(req,res) => {
             })
         });
 
+        router.get('/proxy_species/:species',(req,res) => {
+            var species = req.params.species;
+            genelist_flat.getProxySpecies(species, (err, lists)=> {
+                    if(err) {
+                        res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
+                    }
+                    else {
+                    //var totalPages = Math.ceil(totalCount / size);
+                    res.write(JSON.stringify({success: true, lists:lists},null,2));
+                    res.end();
+                }
+            })
+        });
+
 
 /* router.get('/species/:species',(req,res) => {
     var species = req.params.species;

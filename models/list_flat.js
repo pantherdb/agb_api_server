@@ -26,8 +26,8 @@ module.exports.getSpecies = (callback) => {
     GeneListFlat.find().distinct('species').exec(callback);
 }
 
-module.exports.getProxySpecies = (callback) => {
-    GeneListFlat.find().distinct('proxy_org_long').exec(callback);
+module.exports.getProxySpecies = (species, callback) => {
+    GeneListFlat.find({'species': species}).distinct('proxy_org_long').exec(callback);
 }
 
 module.exports.getListByProxySpecies = (species, proxy_spe, pageNo, size, callback) => {
