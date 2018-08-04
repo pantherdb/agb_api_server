@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const genelist = require('../models/list');
 const shortlist = require('../models/short_list');
+const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
 
 //GET HTTP method to /genelist
@@ -54,6 +55,30 @@ router.get('/species/:species',(req,res) => {
         }
         })
     });
+
+    router.get('/species/:species/:proxy_spe',(req,res) => {
+        var species = req.params.species;
+        var proxy_spe = req.params.proxy_spe;
+        var page = parseInt(req.query.page);
+        var limit = parseInt(req.query.limit);
+        shortlist.getTotalGeneCountBySpecies(species, (err, totalCount)=> {
+            if(err) {
+                res.json({success:false, message: `Failed to get total gene counts. Error: ${err}`});
+            }
+            else {
+                genelist_flat.getListByProxySpecies(species, proxy_spe, page, limit, (err, lists)=> {
+                     if(err) {
+                          res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
+                     }
+                     else {
+                        //var totalPages = Math.ceil(totalCount / size);
+                        res.write(JSON.stringify({success: true, total: totalCount, lists:lists},null,2));
+                        res.end();
+                    }
+                })
+            }
+            })
+        });
 
 
 /* router.get('/species/:species',(req,res) => {
