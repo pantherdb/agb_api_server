@@ -31,7 +31,7 @@ module.exports.getProxySpecies = (callback) => {
 }
 
 module.exports.getListByProxySpecies = (species, proxy_spe, pageNo, size, callback) => {
-    GeneListFlat.find({'species': species, 'proxy_org_long': proxy_spe}).skip(size*(pageNo-1)).limit(size).exec(callback);
+    GeneListFlat.find({'species': species, 'proxy_org_long': proxy_spe},{'_id':0,'event':0,'sequence':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
