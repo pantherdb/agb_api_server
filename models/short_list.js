@@ -17,5 +17,5 @@ module.exports.getTotalGeneCountBySpecies = (species, callback) => {
     ShortGeneList.find({'species': species}).count({}).exec(callback);
 }
 module.exports.getListsBySpecies = (species, page, limit, callback) => {
-    ShortGeneList.find({'species': species}).skip(limit*(page-1)).limit(limit).exec(callback);
+    ShortGeneList.find({'species': species},{'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
 }
