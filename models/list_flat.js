@@ -31,14 +31,14 @@ module.exports.getProxySpecies = (species, callback) => {
 }
 
 module.exports.getListByProxySpecies = (species, proxy_spe, pageNo, size, callback) => {
-    GeneListFlat.find({'species': species, 'proxy_org_long': proxy_spe},{'_id':0,'event':0,'sequence':0,'proxy_org_short':0,'proxy_org_long':0,'family_name':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+    GeneListFlat.find({'species': species, 'proxy_org_long': proxy_spe},{'_id':0,'event':0,'sequence':0,'proxy_org_short':0,'proxy_org_long':0,'family_name':0,'species':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
     GeneListFlat.find({'species': species}).count({}).exec(callback);
 }
 module.exports.getListsBySpecies = (species, pageNo, size, callback) => {
-    GeneListFlat.find({'species': species}).skip(size*(pageNo-1)).limit(size).exec(callback);
+    GeneListFlat.find({'species': species},{'_id':0,'species':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 
