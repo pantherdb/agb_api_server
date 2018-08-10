@@ -66,16 +66,30 @@ router.get('/species/:species',(req,res) => {
                 res.json({success:false, message: `Failed to get total gene counts. Error: ${err}`});
             }
             else {
-                genelist_flat.getListByProxySpecies(species, proxy_spe, page, limit, (err, lists)=> {
-                     if(err) {
-                          res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
-                     }
-                     else {
-                        //var totalPages = Math.ceil(totalCount / size);
-                        res.write(JSON.stringify({success: true, total: totalCount, lists:lists},null,2));
-                        res.end();
-                    }
-                })
+                if (proxy_spe == 'default species'){
+                    shortlist.getListsBySpecies(species, page, limit, (err, lists)=> {
+                            if(err) {
+                                res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
+                            }
+                            else {
+                            //var totalPages = Math.ceil(totalCount / size);
+                            res.write(JSON.stringify({success: true, total: totalCount, lists:lists},null,2));
+                            res.end();
+                        }
+                    })
+                }else{
+                    genelist_flat.getListByProxySpecies(species, proxy_spe, page, limit, (err, lists)=> {
+                        if(err) {
+                             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
+                        }
+                        else {
+                           //var totalPages = Math.ceil(totalCount / size);
+                           res.write(JSON.stringify({success: true, total: totalCount, lists:lists},null,2));
+                           res.end();
+                       }
+                   })
+                }
+                
             }
             })
         });
