@@ -43,7 +43,7 @@ module.exports.getListsBySpecies = (species, pageNo, size, callback) => {
 
 
 module.exports.getGeneByPtn = (ptn, callback) => {
-    GeneListFlat.find({'ptn': ptn}).exec(callback);
+    GeneListFlat.find({'ptn': ptn}, {'proxy_gene':1}).exec(callback);
 }
 
 //newList.save is used to insert the document into MongoDB
