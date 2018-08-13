@@ -156,7 +156,7 @@ router.get('/species-list',(req,res) => {
 
 router.get('/gene/:ptn',(req,res) => {
     var ptn = req.params.ptn;
-    genelist_flat.getGeneByPtn(ptn, (err, lists)=> {
+    genelist.getGeneByPtn(ptn, (err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
