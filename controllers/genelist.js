@@ -161,7 +161,11 @@ router.get('/gene/:ptn',(req,res) => {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
         }
         else {
-            res.write(JSON.stringify({success: true, lists:lists},null,2));
+            if (lists[0].direct_paint_annotations.length === 0){
+                res.write(JSON.stringify({success: true, no_direct_anno: true, lists:lists},null,2));
+            } else {
+                res.write(JSON.stringify({success: true, lists:lists},null,2));
+            }
             res.end();
 
     }
