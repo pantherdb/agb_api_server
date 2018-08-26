@@ -8,10 +8,13 @@
   },
   "dependencies": {
     "body-parser": "~1.17.2",
+    "cheerio": "^1.0.0-rc.2",
     "cors": "~2.8.3",
     "express": "~4.15.3",
     "mongoose": "~4.11.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   },
   "author": "Xiaosong Huang",
   "license": "ISC"

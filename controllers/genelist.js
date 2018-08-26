@@ -6,6 +6,24 @@ const shortlist = require('../models/short_list');
 const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
 
+const rp = require('request-promise');
+const cheerio = require('cheerio');
+
+const options = {
+    uri: `http://pantree.org/node/annotationNode.jsp?id=PTN002883566`,
+    transform: function (body) {
+      return cheerio.load(body);
+    }
+};
+
+rp(options)
+  .then(($) => {
+    console.log($);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 //GET HTTP method to /genelist
 router.get('/',(req,res) => {
     genelist.getAllLists((err, lists)=> {
@@ -166,7 +184,7 @@ router.get('/gene/:ptn',(req,res) => {
             if (direct_anno.length === 0){
                 res.write(JSON.stringify({success: true, no_direct_anno: true, lists:lists},null,2));
             } else {
-                res.write(JSON.stringify({success: true, direct_anno: lists[0].direct_paint_annotations, lists:lists},null,2));
+                res.write(JSON.stringify({success: true, lists:lists},null,2));
             }
             res.end();
 
