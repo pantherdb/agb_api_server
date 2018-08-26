@@ -6,8 +6,8 @@ const shortlist = require('../models/short_list');
 const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
 
-const request = require('request');
-const cheerio = require('cheerio');
+//const request = require('request');
+//const cheerio = require('cheerio');
 
 /* const options = {
     uri: `http://pantree.org/node/annotationNode.jsp?id=PTN002883566`,
@@ -16,9 +16,9 @@ const cheerio = require('cheerio');
     }
 }; */
 
-var url = "http://pantree.org/node/annotationNode.jsp?id=PTN002883566";
+//var url = "http://pantree.org/node/annotationNode.jsp?id=PTN002883566";
 
-request(url, function (error, response, body) {
+/* request(url, function (error, response, body) {
     if (!error) {
       var $ = cheerio.load(body);
   
@@ -26,7 +26,7 @@ request(url, function (error, response, body) {
     } else {
       console.log("We’ve encountered an error: " + error);
     }
-  });
+  }); */
 
 //GET HTTP method to /genelist
 router.get('/',(req,res) => {
