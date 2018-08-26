@@ -164,7 +164,7 @@ router.get('/gene/:ptn',(req,res) => {
             //if (lists[0].direct_paint_annotations.length === 0){
                 //res.write(JSON.stringify({success: true, no_direct_anno: true, lists:lists},null,2));
             //} else {
-                res.write(JSON.stringify({success: true, lists:lists},null,2));
+                res.write(JSON.stringify({success: true, direct_anno: lists[0].direct_paint_annotations, lists:lists},null,2));
             //}
             res.end();
 

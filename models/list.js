@@ -9,6 +9,16 @@ const GenelistSchema = mongoose.Schema({
     species: String,
     sequence: String,
     event: String,
+    pthr: String,
+    family_name: String,
+    direct_paint_annotations: [{
+        go_name: String,
+        go_accession: String,
+    }],
+    inherited_paint_annotations: [{
+        go_name: String,
+        go_accession: String,
+    }],
     proxy_genes: [{
         proxy_org_short: String,
         proxy_org_long: String,
