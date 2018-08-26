@@ -6,22 +6,26 @@ const shortlist = require('../models/short_list');
 const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
 
-const rp = require('request-promise');
+const request = require('request');
 const cheerio = require('cheerio');
 
-const options = {
+/* const options = {
     uri: `http://pantree.org/node/annotationNode.jsp?id=PTN002883566`,
     transform: function (body) {
       return cheerio.load(body);
     }
-};
+}; */
 
-rp(options)
-  .then(($) => {
-    console.log($);
-  })
-  .catch((err) => {
-    console.log(err);
+var url = "http://pantree.org/node/annotationNode.jsp?id=PTN002883566";
+
+request(url, function (error, response, body) {
+    if (!error) {
+      var $ = cheerio.load(body);
+  
+      console.log($);
+    } else {
+      console.log("We’ve encountered an error: " + error);
+    }
   });
 
 //GET HTTP method to /genelist
