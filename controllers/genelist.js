@@ -164,14 +164,13 @@ router.get('/gene/:ptn',(req,res) => {
     request(pantree_url, function(error, response, html){
         if(!error){
             var section = html.split('Direct Annotations to this node')[1];
-            console.log(section);
+            //console.log(section);
             var direct_annot_sec = section.split('Annotations inherited by this node')[0];
             var sec2 = section.split('Annotations inherited by this node')[1];
             var inherited_annot_sec = sec2.split('>Sequence<')[0];
-            var direct_annot_lines = direct_annot_sec.split('\n');
-            for(var i=0; i<direct_annot_lines.length;i++){
-
-            }
+            var regex = /http\:\/\/amigo\.geneontology\.org\/cgi\-bin\/amigo\/term\_details\?term\=(GO\%3A\d+)\"\>/;
+            var found = direct_annot_sec.match(regex);
+            console.log(found);
         }
     })
     genelist.getGeneByPtn(ptn, (err, lists)=> {
