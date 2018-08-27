@@ -164,7 +164,9 @@ router.get('/gene/:ptn',(req,res) => {
     request(pantree_url, function(error, response, html){
         if(!error){
             var $ = cheerio.load(html);
-            console.log(html);
+            //console.log(html);
+            var dir_annot_sec = $('table').get(1);
+            console.log(dir_annot_sec);
         }
     })
     genelist.getGeneByPtn(ptn, (err, lists)=> {
