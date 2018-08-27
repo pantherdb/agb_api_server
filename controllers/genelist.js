@@ -165,7 +165,7 @@ router.get('/gene/:ptn', (req, res) => {
             res.json({ success: false, message: `Failed to load all lists. Error: ${err}` });
         }
         else {
-            var pantree_url = `http://pantree.org/node/annotationNode.jsp?id=${ptn}`;
+            /* var pantree_url = `http://pantree.org/node/annotationNode.jsp?id=${ptn}`;
 
             var dir_annos = [];
             var inh_annos = [];
@@ -209,7 +209,10 @@ router.get('/gene/:ptn', (req, res) => {
                     res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
                     res.end();
                 }
-            })
+            }) */
+
+            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.end();
 
 
         }
