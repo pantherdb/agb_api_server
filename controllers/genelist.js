@@ -265,7 +265,7 @@ router.get('/gene_go/:ptn', (req, res) => {
             res.json({ success: false, message: `Failed to load paint annotations. Error: ${error}` });
         }
     })
-}
+});
 /* router.get('/genes',(req,res) => {
     //var ptn = req.params.ptn;
     genelist.getAllgenes((err, lists)=> {
