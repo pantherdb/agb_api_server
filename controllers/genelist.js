@@ -165,7 +165,7 @@ router.get('/gene/:ptn',(req,res) => {
         if(!error){
             var $ = cheerio.load(html);
             //console.log(html);
-            var dir_annot_sec = $('table').get(1).data;
+            var dir_annot_sec = $('table').get(1).html();
             console.log(dir_annot_sec);
         }
     })
