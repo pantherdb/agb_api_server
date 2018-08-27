@@ -6,27 +6,9 @@ const shortlist = require('../models/short_list');
 const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
 
-//const request = require('request');
-//const cheerio = require('cheerio');
+const request = require('request');
+const cheerio = require('cheerio');
 
-/* const options = {
-    uri: `http://pantree.org/node/annotationNode.jsp?id=PTN002883566`,
-    transform: function (body) {
-      return cheerio.load(body);
-    }
-}; */
-
-//var url = "http://pantree.org/node/annotationNode.jsp?id=PTN002883566";
-
-/* request(url, function (error, response, body) {
-    if (!error) {
-      var $ = cheerio.load(body);
-  
-      console.log($);
-    } else {
-      console.log("We’ve encountered an error: " + error);
-    }
-  }); */
 
 //GET HTTP method to /genelist
 router.get('/',(req,res) => {
@@ -178,6 +160,13 @@ router.get('/species-list',(req,res) => {
 
 router.get('/gene/:ptn',(req,res) => {
     var ptn = req.params.ptn;
+    var pantree_url = `http://pantree.org/node/annotationNode.jsp?id=${ptn}`;
+    request(pantree_url, function(error, response, html){
+        if(!error){
+            var $ = cheerio.load(html);
+            console.log($);
+        }
+    })
     genelist.getGeneByPtn(ptn, (err, lists)=> {
         if(err) {
             res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
