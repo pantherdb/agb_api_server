@@ -170,7 +170,7 @@ router.get('/gene/:ptn',(req,res) => {
             var inherited_annot_sec = sec2.split('>Sequence<')[0];
             var direct_annot_lines = direct_annot_sec.split('\n');
             for(var i=0; i<direct_annot_lines.length;i++){
-                var regex = /http\:\/\/amigo\.geneontology\.org\/cgi\-bin\/amigo\/term\_details\?term\=(GO\%3A\d+)\"\>/;
+                var regex = /\<td\s\>\<a\shref\s\=\s\"http\:\/\/amigo\.geneontology\.org\/cgi\-bin\/amigo\/term\_details\?term\=(GO\%3A\d+)\"\>(\.+)\<\/a\>\w+\<\/td\>$/;
                 var found = direct_annot_lines[i].match(regex);
                 if (found){
                     console.log(found);
