@@ -168,9 +168,14 @@ router.get('/gene/:ptn',(req,res) => {
             var direct_annot_sec = section.split('Annotations inherited by this node')[0];
             var sec2 = section.split('Annotations inherited by this node')[1];
             var inherited_annot_sec = sec2.split('>Sequence<')[0];
-            var regex = /http\:\/\/amigo\.geneontology\.org\/cgi\-bin\/amigo\/term\_details\?term\=GO\%3A\d+\"\>/;
-            var found = direct_annot_sec.match(regex);
-            console.log(found);
+            var direct_annot_lines = direct_annot_sec.split('\n');
+            for(var i=0; i<direct_annot_lines.length;i++){
+                var regex = /http\:\/\/amigo\.geneontology\.org\/cgi\-bin\/amigo\/term\_details\?term\=(GO\%3A\d+)\"\>/;
+                var found = direct_annot_lines[i].match(regex);
+                if (found){
+                    console.log(found);
+                }
+            }
         }
     })
     genelist.getGeneByPtn(ptn, (err, lists)=> {
