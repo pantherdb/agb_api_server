@@ -240,7 +240,9 @@ router.get('/gene_go/:ptn', (req, res) => {
                     //console.log(found);
                     var go_acc = found[1].replace(/\%3A/, ':');
                     var go_name = found[2];
-                    dir_annos.push({ 'go_accession': go_acc, 'go_name': go_name });
+                    if (go_name.indexOf('(NOT)') == -1){
+                      dir_annos.push({ 'go_accession': go_acc, 'go_name': go_name });
+                    }
                 }
             }
             //console.log(dir_annos);
@@ -253,7 +255,9 @@ router.get('/gene_go/:ptn', (req, res) => {
                     //console.log(found);
                     var go_acc = found[1].replace(/\%3A/, ':');
                     var go_name = found[2];
-                    inh_annos.push({ 'go_accession': go_acc, 'go_name': go_name });
+                    if (go_name.indexOf('(NOT)') == -1){
+                      inh_annos.push({ 'go_accession': go_acc, 'go_name': go_name });
+                    }
                 }
             }
             //console.log(inh_annos);
