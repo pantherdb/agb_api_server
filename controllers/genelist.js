@@ -219,6 +219,53 @@ router.get('/gene/:ptn', (req, res) => {
     });
 });
 
+router.get('/gene_go/:ptn', (req, res) => {
+    var ptn = req.params.ptn;
+    var pantree_url = `http://pantree.org/node/annotationNode.jsp?id=${ptn}`;
+
+    var dir_annos = [];
+    var inh_annos = [];
+    request(pantree_url, function (error, response, html) {
+        if (!error) {
+            var section = html.split('Direct Annotations to this node')[1];
+            //console.log(section);
+            var direct_annot_sec = section.split('Annotations inherited by this node')[0];
+            var sec2 = section.split('Annotations inherited by this node')[1];
+            var inherited_annot_sec = sec2.split('>Sequence<')[0];
+            var direct_annot_lines = direct_annot_sec.split('\n');
+            for (var i = 0; i < direct_annot_lines.length; i++) {
+                var regex = /http\:\/\/amigo\.geneontology\.org\/cgi\-bin\/amigo\/term\_details\?term\=(GO\%3A\d+)\"\>(.+)\<\/a\>/;
+                var found = direct_annot_lines[i].match(regex);
+                if (found) {
+                    //console.log(found);
+                    var go_acc = found[1].replace(/\%3A/, ':');
+                    var go_name = found[2];
+                    dir_annos.push({ 'go_accession': go_acc, 'go_name': go_name });
+                }
+            }
+            //console.log(dir_annos);
+
+            var inh_annot_lines = inherited_annot_sec.split('\n');
+            for (var i = 0; i < inh_annot_lines.length; i++) {
+                var regex = /http\:\/\/amigo\.geneontology\.org\/cgi\-bin\/amigo\/term\_details\?term\=(GO\%3A\d+)\"\>(.+)\<\/a\>/;
+                var found = inh_annot_lines[i].match(regex);
+                if (found) {
+                    //console.log(found);
+                    var go_acc = found[1].replace(/\%3A/, ':');
+                    var go_name = found[2];
+                    inh_annos.push({ 'go_accession': go_acc, 'go_name': go_name });
+                }
+            }
+            //console.log(inh_annos);
+            //lists[0].direct_paint_annotations = dir_annos;
+            //lists[0].inherited_paint_annotations = inh_annos;
+            res.write(JSON.stringify({ success: true, direct_paint_annotations: dir_annos, inherited_paint_annotations: inh_annos }, null, 2));
+            res.end();
+        } else {
+            res.json({ success: false, message: `Failed to load paint annotations. Error: ${error}` });
+        }
+    })
+}
 /* router.get('/genes',(req,res) => {
     //var ptn = req.params.ptn;
     genelist.getAllgenes((err, lists)=> {
