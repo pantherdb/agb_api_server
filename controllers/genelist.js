@@ -226,7 +226,7 @@ router.get('/gene_go/:ptn', (req, res) => {
     var dir_annos = [];
     var inh_annos = [];
     request(pantree_url, function (error, response, html) {
-        if (!error) {
+        if ((!error) && (html.indexOf('Unable to retrieve family information at this time for null') == -1) ) {
             var section = html.split('Direct Annotations to this node')[1];
             //console.log(section);
             var direct_annot_sec = section.split('Annotations inherited by this node')[0];
