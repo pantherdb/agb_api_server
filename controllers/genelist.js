@@ -65,7 +65,7 @@ router.get('/species/:species', (req, res) => {
     })
 });
 
-router.get('/species/:species/:proxy_spe', cache('30 minutes'), (req, res) => {
+router.get('/species/:species/:proxy_spe', cache('2 hours'), (req, res) => {
     var species = req.params.species;
     var proxy_spe = req.params.proxy_spe;
     var page = parseInt(req.query.page);
@@ -163,7 +163,7 @@ router.get('/species-list', (req, res) => {
     })
 });
 
-router.get('/gene/:ptn', cache('30 minutes'), (req, res) => {
+router.get('/gene/:ptn', cache('1 day'), (req, res) => {
     var ptn = req.params.ptn;
     genelist.getGeneByPtn(ptn, (err, lists) => {
         if (err) {
@@ -224,7 +224,7 @@ router.get('/gene/:ptn', cache('30 minutes'), (req, res) => {
     });
 });
 
-router.get('/gene_go/:ptn', cache('2 days'), (req, res) => {
+router.get('/gene_go/:ptn', cache('30 days'), (req, res) => {
     var ptn = req.params.ptn;
     var pantree_url = `http://pantree.org/node/annotationNode.jsp?id=${ptn}`;
 
