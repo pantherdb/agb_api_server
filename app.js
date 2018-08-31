@@ -7,6 +7,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const genelist = require('./controllers/genelist');
+const cache = require('memory-cache');
 
 //Connect mongoose to our database
 mongoose.connect(config.database);
@@ -39,6 +40,26 @@ app.use(bodyParser.json());
 */
 app.use(express.static(path.join(__dirname, 'public')));
 
+// configure cache middleware
+let memCache = new cache.Cache();
+let cacheMiddleware = (duration) => {
+    return (req, res, next) => {
+        let key =  '__express__' + req.originalUrl || req.url
+        let cacheContent = memCache.get(key);
+        if(cacheContent){
+            res.send( cacheContent );
+            return
+        }else{
+            res.sendResponse = res.send
+            res.send = (body) => {
+                memCache.put(key,body,duration*1000);
+                res.sendResponse(body)
+            }
+            next()
+        }
+    }
+}
+
 
 app.get('/', (req,res) => {
     res.send("Invalid page");
@@ -46,7 +67,7 @@ app.get('/', (req,res) => {
 
 
 //Routing all HTTP requests to /genelist to genelist controller
-app.use('/genelist',genelist);
+app.use('/genelist',cacheMiddleware(30), genelist);
 
 
 
