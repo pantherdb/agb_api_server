@@ -9,27 +9,10 @@ const Species = require('../models/species');
 const request = require('request');
 const cheerio = require('cheerio');
 
-const cache = require('memory-cache');
+import apicache from 'apicache';
 
-// configure cache middleware
-let memCache = new cache.Cache();
-let cacheMiddleware = (duration) => {
-    return (req, res, next) => {
-        let key =  '__express__' + req.originalUrl || req.url
-        let cacheContent = memCache.get(key);
-        if(cacheContent){
-            res.send( cacheContent );
-            return
-        }else{
-            res.sendResponse = res.send
-            res.send = (body) => {
-                memCache.put(key,body,duration*1000);
-                res.sendResponse(body)
-            }
-            next()
-        }
-    }
-}
+let cache = apicache.middleware;
+
 
 
 //GET HTTP method to /genelist
@@ -82,7 +65,7 @@ router.get('/species/:species', (req, res) => {
     })
 });
 
-router.get('/species/:species/:proxy_spe', cacheMiddleware(30), (req, res) => {
+router.get('/species/:species/:proxy_spe', cache('30 minutes'), (req, res) => {
     var species = req.params.species;
     var proxy_spe = req.params.proxy_spe;
     var page = parseInt(req.query.page);
@@ -180,7 +163,7 @@ router.get('/species-list', (req, res) => {
     })
 });
 
-router.get('/gene/:ptn', cacheMiddleware(30), (req, res) => {
+router.get('/gene/:ptn', cache('30 minutes'), (req, res) => {
     var ptn = req.params.ptn;
     genelist.getGeneByPtn(ptn, (err, lists) => {
         if (err) {
@@ -241,7 +224,7 @@ router.get('/gene/:ptn', cacheMiddleware(30), (req, res) => {
     });
 });
 
-router.get('/gene_go/:ptn', cacheMiddleware(30), (req, res) => {
+router.get('/gene_go/:ptn', cache('30 minutes'), (req, res) => {
     var ptn = req.params.ptn;
     var pantree_url = `http://pantree.org/node/annotationNode.jsp?id=${ptn}`;
 
