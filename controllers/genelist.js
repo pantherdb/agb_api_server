@@ -9,7 +9,7 @@ const Species = require('../models/species');
 const request = require('request');
 const cheerio = require('cheerio');
 
-import apicache from 'apicache';
+const apicache = require('apicache');
 
 let cache = apicache.middleware;
 
