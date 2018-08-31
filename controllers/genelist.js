@@ -224,7 +224,7 @@ router.get('/gene/:ptn', cache('1 day'), (req, res) => {
     });
 });
 
-router.get('/gene_go/:ptn', cache('30 days'), (req, res) => {
+router.get('/gene_go/:ptn', cache('15 days'), (req, res) => {
     var ptn = req.params.ptn;
     var pantree_url = `http://pantree.org/node/annotationNode.jsp?id=${ptn}`;
 
