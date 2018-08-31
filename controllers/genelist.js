@@ -18,14 +18,14 @@ let flatcache = flatCache.load('productsCache');
 // create flat cache routes
 let flatCacheMiddleware = (req,res, next) => {
     let key =  '__express__' + req.originalUrl || req.url
-    let cacheContent = cache.getKey(key);
+    let cacheContent = flatcache.getKey(key);
     if( cacheContent){
         res.send( cacheContent );
     }else{
         res.sendResponse = res.send
         res.send = (body) => {
-            cache.setKey(key,body);
-            cache.save();
+            flatcache.setKey(key,body);
+            flatcache.save();
             res.sendResponse(body)
         }
         next()
