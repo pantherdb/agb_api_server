@@ -10,27 +10,8 @@ const request = require('request');
 const cheerio = require('cheerio');
 
 const apicache = require('apicache');
-const flatCache = require('flat-cache');
 
 let cache = apicache.middleware;
-let flatcache = flatCache.load('productsCache');
-
-// create flat cache routes
-let flatCacheMiddleware = (req,res, next) => {
-    let key =  '__express__' + req.originalUrl || req.url
-    let cacheContent = flatcache.getKey(key);
-    if( cacheContent){
-        res.send( cacheContent );
-    }else{
-        res.sendResponse = res.send
-        res.send = (body) => {
-            flatcache.setKey(key,body);
-            flatcache.save();
-            res.sendResponse(body)
-        }
-        next()
-    }
-};
 
 
 
@@ -243,7 +224,7 @@ router.get('/gene/:ptn', cache('30 minutes'), (req, res) => {
     });
 });
 
-router.get('/gene_go/:ptn', flatCacheMiddleware, (req, res) => {
+router.get('/gene_go/:ptn', cache('2 days'), (req, res) => {
     var ptn = req.params.ptn;
     var pantree_url = `http://pantree.org/node/annotationNode.jsp?id=${ptn}`;
 
