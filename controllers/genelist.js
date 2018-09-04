@@ -230,6 +230,7 @@ router.get('/gene_go/:ptn', cache('15 days'), (req, res) => {
 
     var dir_annos = [];
     var inh_annos = [];
+    var annos = [];
     request(pantree_url, function (error, response, html) {
         if (!error) {
             if (html.indexOf('Unable to retrieve family information at this time for null') == -1) {
@@ -270,7 +271,8 @@ router.get('/gene_go/:ptn', cache('15 days'), (req, res) => {
             //console.log(inh_annos);
             //lists[0].direct_paint_annotations = dir_annos;
             //lists[0].inherited_paint_annotations = inh_annos;
-            res.write(JSON.stringify({ success: true, lists: [{ direct_paint_annotations: dir_annos, inherited_paint_annotations: inh_annos }] }, null, 2));
+            annos = dir_annos.concat(inh_annos);
+            res.write(JSON.stringify({ success: true, lists: [{ paint_annotations: annos }] }, null, 2));
             res.end();
         } else {
             res.json({ success: false, message: `Failed to load paint annotations. Error: ${error}` });
