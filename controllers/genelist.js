@@ -272,6 +272,7 @@ router.get('/gene_go/:ptn', cache('15 days'), (req, res) => {
             //lists[0].direct_paint_annotations = dir_annos;
             //lists[0].inherited_paint_annotations = inh_annos;
             annos = dir_annos.concat(inh_annos);
+            console.log(annos);
             res.write(JSON.stringify({ success: true, lists: [{ paint_annotations: annos }] }, null, 2));
             res.end();
         } else {
