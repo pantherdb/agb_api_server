@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const ShortGenelistSchema = mongoose.Schema({
     ptn: String,
     species:String,
+    species_long:String,
     name: String,
     pthr: String,
     proxy_gene: String,
@@ -17,5 +18,5 @@ module.exports.getTotalGeneCountBySpecies = (species, callback) => {
     ShortGeneList.find({'species': species}).count({}).exec(callback);
 }
 module.exports.getListsBySpecies = (species, page, limit, callback) => {
-    ShortGeneList.find({'species': species},{'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
+    ShortGeneList.find({$or: [{'species': species}, {'species_long': species}]},{'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
 }
