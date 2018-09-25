@@ -9,7 +9,7 @@ const ShortGenelistSchema = mongoose.Schema({
     species_long:String,
     name: String,
     pthr: String,
-    ancestor_species: [String],
+    ancestor_species: String,
     proxy_gene: String,
 });
 //const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
