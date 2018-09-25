@@ -13,7 +13,7 @@ const ShortGenelistSchema = mongoose.Schema({
     proxy_gene: String,
 });
 
-const GenelistFlatSchema = mongoose.Schema({
+/* const GenelistFlatSchema = mongoose.Schema({
     ptn: String,
     name: String,
     species: String,
@@ -22,12 +22,12 @@ const GenelistFlatSchema = mongoose.Schema({
     proxy_org_short: String,
     proxy_org_long: String,
     proxy_gene: String
-});
+}); */
 
 //const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
 const ShortGeneList = module.exports = mongoose.model('gene_one_proxy_lists', ShortGenelistSchema );
 
-const GeneListFlat = module.exports = mongoose.model('flat_genelists', GenelistFlatSchema );
+//const GeneListFlat = module.exports = mongoose.model('flat_genelists', GenelistFlatSchema );
 
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
     ShortGeneList.find({$or: [{'species': species}, {'species_long': species}]}).count({}).exec(callback);
@@ -35,9 +35,9 @@ module.exports.getTotalGeneCountBySpecies = (species, callback) => {
 module.exports.getListsBySpecies = (species, page, limit, callback) => {
     ShortGeneList.find({$or: [{'species': species}, {'species_long': species}]},{'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
 }
-module.exports.getGeneGains = (exspecies, anspecies,page, limit, callback) => {
+/* module.exports.getGeneGains = (exspecies, anspecies,page, limit, callback) => {
     ShortGeneList.find({$and: [{'ancestor_species': {$not: new RegExp(anspecies)}}, {'pthr': {$not: /NOT_AVAILABLE/}}, {$or: [{'species': exspecies}, {'species_long': exspecies}]}]}, {'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
-}
+} */
 
 /* module.exports.getGeneGainsNum = (exspecies, anspecies, callback) => {
     ShortGeneList.find({$or: [{'species': exspecies}, {'species_long': exspecies}]}, {'ancestor_species': new RegExp(anspecies)}).count({}).exec(callback);
