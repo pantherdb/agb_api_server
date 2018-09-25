@@ -321,24 +321,17 @@ router.delete('/:id', (req,res,next)=> {
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    shortlist.getGeneGainsNum(exspecies, (err, totalCount) => {
+    shortlist.getGeneGains(exspecies, anspecies, page, limit, (err, lists) => {
         if (err) {
-            res.json({ success: false, message: `Failed to get total gene counts. Error: ${err}` });
+            res.json({ success: false, message: `Failed to load all lists. Error: ${err}` });
         }
         else {
-            shortlist.getGeneGains(exspecies, anspecies, page, limit, (err, lists) => {
-                if (err) {
-                    res.json({ success: false, message: `Failed to load all lists. Error: ${err}` });
-                }
-                else {
-                    //var totalPages = Math.ceil(totalCount / size);
-                    console.log(lists);
-                    res.write(JSON.stringify({ success: true, total: totalCount, lists: lists }, null, 2));
-                    res.end();
-                }
-            })
+            //var totalPages = Math.ceil(totalCount / size);
+            console.log(lists);
+            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.end();
         }
-    })
+    });
 });
 
 module.exports = router;
