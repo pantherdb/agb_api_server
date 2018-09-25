@@ -118,23 +118,7 @@ router.get('/proxy_species/:species', (req, res) => {
 });
 
 
-/* router.get('/species/:species',(req,res) => {
-    var species = req.params.species;
-    var page = parseInt(req.query.page);
-    //var pageNo = 1;
-    var limit = parseInt(req.query.limit);
-    //var size = 100;
-    shortlist.getListsBySpecies(species, page, limit, (err, lists)=> {
-        if(err) {
-            res.json({success:false, message: `Failed to load all lists. Error: ${err}`});
-        }
-        else {
-            //var totalPages = Math.ceil(totalCount / size);
-            res.write(JSON.stringify({success: true, lists:lists},null,2));
-            res.end();
-        }
-    })
-}); */
+
 
 router.get('/species-info/:species', (req, res) => {
     var species = req.params.species;
@@ -331,4 +315,29 @@ router.delete('/:id', (req,res,next)=> {
               res.json({success:false});
       })
   }); */
+
+  router.get('/gene-gain/:exspecies/:anspecies', cache('2 hours'), (req, res) => {
+    var exspecies = req.params.exspecies;
+    var anspecies = req.params.anspecies;
+    var page = parseInt(req.query.page);
+    var limit = parseInt(req.query.limit);
+    shortlist.getGeneGainsNum(exspecies, (err, totalCount) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to get total gene counts. Error: ${err}` });
+        }
+        else {
+            shortlist.getGeneGains(exspecies, anspecies, page, limit, (err, lists) => {
+                if (err) {
+                    res.json({ success: false, message: `Failed to load all lists. Error: ${err}` });
+                }
+                else {
+                    //var totalPages = Math.ceil(totalCount / size);
+                    res.write(JSON.stringify({ success: true, total: totalCount, lists: lists }, null, 2));
+                    res.end();
+                }
+            })
+        }
+    })
+});
+
 module.exports = router;
