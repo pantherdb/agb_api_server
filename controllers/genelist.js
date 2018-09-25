@@ -321,15 +321,31 @@ router.delete('/:id', (req,res,next)=> {
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    shortlist.getGeneGains(exspecies, anspecies, page, limit, (err, lists) => {
+    shortlist.getListsBySpecies(exspecies, anspecies, page, limit, (err, ex_lists) => {
         if (err) {
-            res.json({ success: false, message: `Failed to load all lists. Error: ${err}` });
+            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
         else {
             //var totalPages = Math.ceil(totalCount / size);
-            console.log(lists);
-            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
-            res.end();
+            //console.log(lists);
+            //res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            //res.end();
+            
+            genelist_flat.getListByProxySpecies(anspecies, exspecies, page, limit, (err, an_lists) => {
+                if (err) {
+                    res.json({ success: false, message: `Failed to load all ancestral lists. Error: ${err}` });
+                }
+                else {
+                    //var totalPages = Math.ceil(totalCount / size);
+                    //res.write(JSON.stringify({ success: true, total: totalCount, lists: lists }, null, 2));
+                    //res.end();
+                    var proxy_ptns = an_lists.map(g=>g.proxy_gene_ptn);
+                    var lists = ex_lists.filter(g=>!proxy_ptns.includes(g.ptn));
+                    res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+                    res.end();
+                }
+            })
+
         }
     });
 });

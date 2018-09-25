@@ -12,8 +12,22 @@ const ShortGenelistSchema = mongoose.Schema({
     ancestor_species: String,
     proxy_gene: String,
 });
+
+const GenelistFlatSchema = mongoose.Schema({
+    ptn: String,
+    name: String,
+    species: String,
+    sequence: String,
+    event: String,
+    proxy_org_short: String,
+    proxy_org_long: String,
+    proxy_gene: String
+});
+
 //const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
 const ShortGeneList = module.exports = mongoose.model('gene_one_proxy_lists', ShortGenelistSchema );
+
+const GeneListFlat = module.exports = mongoose.model('flat_genelists', GenelistFlatSchema );
 
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
     ShortGeneList.find({$or: [{'species': species}, {'species_long': species}]}).count({}).exec(callback);
