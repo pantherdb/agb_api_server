@@ -22,7 +22,7 @@ module.exports.getListsBySpecies = (species, page, limit, callback) => {
     ShortGeneList.find({$or: [{'species': species}, {'species_long': species}]},{'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
 }
 module.exports.getGeneGains = (exspecies, anspecies,page, limit, callback) => {
-    ShortGeneList.find({$and: [{'ancestor_species': new RegExp(anspecies)}, {$or: [{'species': exspecies}, {'species_long': exspecies}]}]}, {'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
+    ShortGeneList.find({$and: [{$not: {'ancestor_species': new RegExp(anspecies)}}, {$or: [{'species': exspecies}, {'species_long': exspecies}]}, {$not: {'pthr': 'NOT_AVAILABLE'}}]}, {'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
 }
 
 /* module.exports.getGeneGainsNum = (exspecies, anspecies, callback) => {
