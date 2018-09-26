@@ -220,7 +220,8 @@ router.get('/gene_go/:ptn', cache('15 days'), (req, res) => {
     })
 });
 
-router.get('/gene-pass/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
+//router.get('/gene-pass/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
+router.get('/gene-pass/:anspecies/:exspecies', (req, res) => {
     var exspecies = req.params.exspecies;
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
@@ -238,7 +239,8 @@ router.get('/gene-pass/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
     });
 });
 
-router.get('/gene-loss/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
+//router.get('/gene-loss/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
+router.get('/gene-loss/:anspecies/:exspecies', (req, res) => {
     var exspecies = req.params.exspecies;
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
@@ -254,7 +256,8 @@ router.get('/gene-loss/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
     });
 });
 
-router.get('/gene-gain/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
+//router.get('/gene-gain/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
+router.get('/gene-gain/:anspecies/:exspecies', (req, res) => {
     var exspecies = req.params.exspecies;
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
@@ -272,7 +275,8 @@ router.get('/gene-gain/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
     });
 });
 
-router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
+//router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
+router.get('/gene-no-model/:exspecies', (req, res) => {
     var exspecies = req.params.exspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
