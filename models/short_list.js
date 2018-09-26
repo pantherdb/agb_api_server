@@ -35,9 +35,9 @@ module.exports.getTotalGeneCountBySpecies = (species, callback) => {
 module.exports.getListsBySpecies = (species, page, limit, callback) => {
     ShortGeneList.find({$or: [{'species': species}, {'species_long': species}]},{'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
 }
-/* module.exports.getGeneGains = (exspecies, anspecies,page, limit, callback) => {
+module.exports.getGeneGains = (exspecies, anspecies,page, limit, callback) => {
     ShortGeneList.find({$and: [{'ancestor_species': {$not: new RegExp(anspecies)}}, {'pthr': {$not: /NOT_AVAILABLE/}}, {$or: [{'species': exspecies}, {'species_long': exspecies}]}]}, {'_id':0,'species':0}).skip(limit*(page-1)).limit(limit).exec(callback);
-} */
+}
 
 /* module.exports.getGeneGainsNum = (exspecies, anspecies, callback) => {
     ShortGeneList.find({$or: [{'species': exspecies}, {'species_long': exspecies}]}, {'ancestor_species': new RegExp(anspecies)}).count({}).exec(callback);
