@@ -75,13 +75,14 @@ module.exports.getLostGenes = (aSpecies, eSpecies, pageNo, size, callback) => {
 
 module.exports.getNotModeledGenes = (eSpecies, pageNo, size, callback) => {
     GeneListFlat.find(
-        /* {$and:
+        {$and:
             [
-                {$or: [{'species_short': eSpecies}, {'species_long': eSpecies}]},
+                //{$or: [{'species_short': eSpecies}, {'species_long': eSpecies}]},
+                {'species_short': eSpecies},
                 {'pthr': /NOT_AVAILABLE/}
             ] 
-        }, */
+        },
 
-        {'pthr': /NOT_AVAILABLE/},
+        //{'pthr': /NOT_AVAILABLE/},
         {'_id':0,'event':0,'sequence':0, 'species_short':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
