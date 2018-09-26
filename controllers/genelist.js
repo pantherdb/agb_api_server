@@ -368,4 +368,19 @@ router.get('/gene-gain/:exspecies/:anspecies', cache('2 hours'), (req, res) => {
     });
 });
 
+router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
+    var exspecies = req.params.exspecies;
+    var page = parseInt(req.query.page);
+    var limit = parseInt(req.query.limit);
+    genelist_flat.getNoTModeledGenes(exspecies, page, limit, (err, lists) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+        }
+        else {
+            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.end();
+        }
+    });
+});
+
 module.exports = router;
