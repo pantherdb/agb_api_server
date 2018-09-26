@@ -316,37 +316,38 @@ router.delete('/:id', (req,res,next)=> {
       })
   }); */
 
-  router.get('/gene-gain/:exspecies/:anspecies', cache('2 hours'), (req, res) => {
+router.get('/gene-pass/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
     var exspecies = req.params.exspecies;
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    shortlist.getListsBySpecies(exspecies, anspecies, page, limit, (err, ex_lists) => {
+    genelist_flat.getPassedGenes(anspecies, exspecies, page, limit, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
         else {
             //var totalPages = Math.ceil(totalCount / size);
             //console.log(lists);
-            //res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
-            //res.end();
-            
-            genelist_flat.getListByProxySpecies(anspecies, exspecies, page, limit, (err, an_lists) => {
-                if (err) {
-                    res.json({ success: false, message: `Failed to load all ancestral lists. Error: ${err}` });
-                }
-                else {
-                    //var totalPages = Math.ceil(totalCount / size);
-                    //res.write(JSON.stringify({ success: true, total: totalCount, lists: lists }, null, 2));
-                    //res.end();
-                    var proxy_ptns = an_lists.map(g=>g.proxy_gene_ptn);
-                    console.log(proxy_ptns);
-                    var lists = ex_lists.filter(g=>!proxy_ptns.includes(g.ptn));
-                    res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
-                    res.end();
-                }
-            })
+            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.end();
+        }
+    });
+});
 
+router.get('/gene-gain/:exspecies/:anspecies', cache('2 hours'), (req, res) => {
+    var exspecies = req.params.exspecies;
+    var anspecies = req.params.anspecies;
+    var page = parseInt(req.query.page);
+    var limit = parseInt(req.query.limit);
+    shortlist.getGeneGains(exspecies, anspecies, page, limit, (err, lists) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to load all lists. Error: ${err}` });
+        }
+        else {
+            //var totalPages = Math.ceil(totalCount / size);
+            console.log(lists);
+            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.end();
         }
     });
 });

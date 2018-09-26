@@ -50,6 +50,19 @@ module.exports.getGeneByPtn = (ptn, callback) => {
     GeneListFlat.find({'ptn': ptn}, {'proxy_gene':1}).exec(callback);
 }
 
+module.exports.getPassedGenes = (aSpecies, eSpecies, pageNo, size, callback) => {
+    GeneListFlat.find(
+        {$and:
+            [
+                {$or: 
+                [{'species': aSpecies, 'proxy_org_long': eSpecies}, {'species': aSpecies, 'proxy_org_short': eSpecies}]
+                },
+                {'all_desendant_gene_ptn_in_proxy_species': {$not: /NOT_AVAILABLE/}}
+            ] 
+        },
+        {'_id':0,'event':0,'sequence':0,'proxy_org_short':0,'proxy_org_long':0,'family_name':0,'species':0, 'all_desendant_gene_name_in_proxy_species':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+}
+
 //newList.save is used to insert the document into MongoDB
 /* module.exports.addList = (newList, callback) => {
     newList.save(callback);
