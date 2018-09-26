@@ -340,6 +340,7 @@ router.delete('/:id', (req,res,next)=> {
                     //res.write(JSON.stringify({ success: true, total: totalCount, lists: lists }, null, 2));
                     //res.end();
                     var proxy_ptns = an_lists.map(g=>g.proxy_gene_ptn);
+                    console.log(proxy_ptns);
                     var lists = ex_lists.filter(g=>!proxy_ptns.includes(g.ptn));
                     res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
                     res.end();

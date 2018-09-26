@@ -11,7 +11,11 @@ const GenelistFlatSchema = mongoose.Schema({
     event: String,
     proxy_org_short: String,
     proxy_org_long: String,
-    proxy_gene: String
+    proxy_gene: String,
+    all_desendant_gene_ptn_in_proxy_species: String,
+    all_desendant_gene_name_in_proxy_species: String,
+    all_desendant_longId_in_proxy_species: String
+
 });
 
 const GeneListFlat = module.exports = mongoose.model('flat_genelists', GenelistFlatSchema );
