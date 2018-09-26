@@ -77,7 +77,7 @@ module.exports.getNotModeledGenes = (eSpecies, pageNo, size, callback) => {
     GeneListFlat.find(
         {$and:
             [
-                {$or: [{'species_short': eSpecies}, {'species_long': aSpecies}]},
+                {$or: [{'species_short': eSpecies}, {'species_long': eSpecies}]},
                 {'pthr': /NOT_AVAILABLE/}
             ] 
         },
