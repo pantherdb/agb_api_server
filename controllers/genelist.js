@@ -236,7 +236,10 @@ router.get('/gene-pass/:anspecies/:exspecies', (req, res) => {
             var total = uniqueItems.length;
             var totalExtant;
             for (var i = 0; i < uniqueItems.length; i++) {
-                totalExtant = totalExtant + uniqueItems[i]['all_desendant_gene_count'];
+                var gene = uniqueItems[i];
+                var all_desend_gene = gene['all_desendant_ptn_in_proxy_species'];
+                var count = all_desend_gene.split(',').length;
+                totalExtant = totalExtant + count;
             }
             res.write(JSON.stringify({ success: true, count: total,extInheritedNum: totalExtant, lists: uniqueItems }, null, 2));
             res.end();
