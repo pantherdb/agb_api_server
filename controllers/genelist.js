@@ -234,7 +234,11 @@ router.get('/gene-pass/:anspecies/:exspecies', (req, res) => {
             var uniqueItems = [...new Set(lists)];
             //uniqueItems.map(gene=>gene.all_desendant_ptn_in_proxy_species = gene.all_desendant_ptn_in_proxy_species.split(','));
             var total = uniqueItems.length;
-            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
+            var totalExtant;
+            for (var i = 0; i < uniqueItems.length; i++) {
+                totalExtant = totalExtant + uniqueItems[i]['all_desendant_ptn_in_proxy_species'].split(',').length;
+            }
+            res.write(JSON.stringify({ success: true, count: total, extInheritedCount: totalExtant, lists: uniqueItems }, null, 2));
             res.end();
         }
     });
