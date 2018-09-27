@@ -231,9 +231,9 @@ router.get('/gene-pass/:anspecies/:exspecies', (req, res) => {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
         else {
-            //var totalPages = Math.ceil(totalCount / size);
-            //console.log(lists);
-            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            var uniqueItems = [...new Set(lists)];
+            var total = uniqueItems.length;
+            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
             res.end();
         }
     });
@@ -250,7 +250,9 @@ router.get('/gene-loss/:anspecies/:exspecies', (req, res) => {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
         else {
-            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            var uniqueItems = [...new Set(lists)];
+            var total = uniqueItems.length;
+            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
             res.end();
         }
     });
@@ -270,7 +272,8 @@ router.get('/gene-gain/:anspecies/:exspecies', (req, res) => {
             //var totalPages = Math.ceil(totalCount / size);
             //console.log(lists);
             var uniqueItems = [...new Set(lists)];
-            res.write(JSON.stringify({ success: true, lists: uniqueItems }, null, 2));
+            var total = uniqueItems.length;
+            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
             res.end();
         }
     });
@@ -286,7 +289,9 @@ router.get('/gene-no-model/:exspecies', (req, res) => {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
         else {
-            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            var uniqueItems = [...new Set(lists)];
+            var total = uniqueItems.length;
+            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
             res.end();
         }
     });
