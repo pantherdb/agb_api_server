@@ -265,7 +265,7 @@ router.get('/gene-gain/:anspecies/:exspecies', (req, res) => {
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    genelist_flat.getGainedGenes(anspecies, exspecies, page, limit, (err, lists) => {
+    shortlist.getGainedGenes(anspecies, exspecies, page, limit, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all lists. Error: ${err}` });
         }
