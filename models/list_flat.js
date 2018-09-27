@@ -70,7 +70,7 @@ module.exports.getLostGenes = (aSpecies, eSpecies, pageNo, size, callback) => {
                 {'all_desendant_gene_ptn_in_proxy_species': /NOT_AVAILABLE/}
             ] 
         },
-        {'_id':0,'event':0,'sequence':0,'proxy_org_short':0,'proxy_org_long':0,'family_name':0,'species_short':0, 'species_long':0, "proxy_gene":0, "all_desendant_gene_ptn_in_proxy_species":0, 'all_desendant_gene_name_in_proxy_species':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+        {'_id':0,'event':0,'sequence':0,'proxy_org_short':0,'proxy_org_long':0,'family_name':0,'species_short':0, 'species_long':0, "proxy_gene":0, "all_desendant_gene_ptn_in_proxy_species":0, 'all_desendant_gene_name_in_proxy_species':0, "proxy_of_ancestor_spe":0, 'pthr':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getNotModeledGenes = (eSpecies, pageNo, size, callback) => {
