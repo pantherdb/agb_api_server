@@ -122,7 +122,7 @@ router.get('/proxy_species/:species', (req, res) => {
 
 router.get('/species-info/:species', (req, res) => {
     var species = req.params.species;
-    Species.getSpeciesbyShort(species, (err, lists) => {
+    Species.getSpeciesDetail(species, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load species info. Error: ${err}` });
         }
