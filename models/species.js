@@ -17,8 +17,13 @@ const SpeciesSchema = mongoose.Schema({
 
 const Species = module.exports = mongoose.model('species', SpeciesSchema );
 
-module.exports.getSpeciesbyShort = (species, callback) => {
-    Species.find({'short_name': species}).exec(callback);
+module.exports.getSpeciesDetail = (species, callback) => {
+    Species.find(
+        {$or:
+            [{'short_name': species},
+             {'long_name': species}]
+        }
+        ).exec(callback);
 }
 
 module.exports.getSpeciesList = (callback) => {
