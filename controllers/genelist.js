@@ -269,7 +269,8 @@ router.get('/gene-gain/:anspecies/:exspecies', (req, res) => {
         else {
             //var totalPages = Math.ceil(totalCount / size);
             //console.log(lists);
-            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            var uniqueItems = [...new Set(lists)];
+            res.write(JSON.stringify({ success: true, lists: uniqueItems }, null, 2));
             res.end();
         }
     });
