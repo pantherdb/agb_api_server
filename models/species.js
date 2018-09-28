@@ -22,7 +22,8 @@ module.exports.getSpeciesDetail = (species, callback) => {
         {$or:
             [{'short_name': species},
              {'long_name': species}]
-        }
+        },
+        {'_id':0,'conversion':0,'common_name':0}
         ).exec(callback);
 }
 
