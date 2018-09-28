@@ -23,9 +23,9 @@ const GeneListFlat = module.exports = mongoose.model('flat_genelists', GenelistF
 //const ShortGeneList = module.exports = mongoose.model('gene_one_proxy_list', ShortGenelistSchema );
 
 //GeneList.find() returns all the lists
-module.exports.getAllLists = (callback) => {
+/* module.exports.getAllLists = (callback) => {
     GeneListFlat.find(callback).limit(20);
-}
+} */
 
 module.exports.getSpecies = (callback) => {
     GeneListFlat.find().distinct('species_short').exec(callback);
@@ -81,7 +81,7 @@ module.exports.getNotModeledGenes = (eSpecies, pageNo, size, callback) => {
                 {'pthr': /NOT_AVAILABLE/}
             ] 
         },
-        {'_id':0,'event':0,'sequence':0, 'species_short':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+        {'_id':0,'event':0,'sequence':0, 'species_short':0, 'species_long':0, "proxy_gene":0, 'proxy_of_ancestor_spe':0, 'pthr':0, "all_desendant_gene_ptn_in_proxy_species":0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getGainedGenes = (aSpecies, eSpecies, pageNo, size, callback) => {

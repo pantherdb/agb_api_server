@@ -16,7 +16,7 @@ let cache = apicache.middleware;
 
 
 //GET HTTP method to /genelist
-router.get('/', (req, res) => {
+/* router.get('/', (req, res) => {
     genelist.getAllLists((err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all lists. Error: ${err}` });
@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 
         }
     });
-});
+}); */
 
 /* router.get('/species',(req,res) => {
     species.getAllSpecies((err, lists)=> {
@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
     });
 }); */
 
-router.get('/species/:species', (req, res) => {
+router.get('/species/:species', cache('2 hours'), (req, res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
@@ -103,7 +103,7 @@ router.get('/species/:species/:proxy_spe', cache('2 hours'), (req, res) => {
     })
 });
 
-router.get('/proxy_species/:species', (req, res) => {
+router.get('/proxy_species/:species', cache('15 days'), (req, res) => {
     var species = req.params.species;
     genelist_flat.getProxySpecies(species, (err, lists) => {
         if (err) {
@@ -120,7 +120,7 @@ router.get('/proxy_species/:species', (req, res) => {
 
 
 
-router.get('/species-info/:species', (req, res) => {
+router.get('/species-info/:species', cache('2 hours'), (req, res) => {
     var species = req.params.species;
     Species.getSpeciesDetail(species, (err, lists) => {
         if (err) {
@@ -134,7 +134,7 @@ router.get('/species-info/:species', (req, res) => {
     })
 });
 
-router.get('/species-list', (req, res) => {
+router.get('/species-list', cache('2 hours'), (req, res) => {
     Species.getSpeciesList((err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load species list. Error: ${err}` });
@@ -221,7 +221,7 @@ router.get('/gene_go/:ptn', cache('15 days'), (req, res) => {
 });
 
 //router.get('/gene-pass/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
-router.get('/gene-pass/:anspecies/:exspecies', (req, res) => {
+router.get('/gene-pass/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
     var exspecies = req.params.exspecies;
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
@@ -248,7 +248,7 @@ router.get('/gene-pass/:anspecies/:exspecies', (req, res) => {
 });
 
 //router.get('/gene-loss/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
-router.get('/gene-loss/:anspecies/:exspecies', (req, res) => {
+router.get('/gene-loss/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
     var exspecies = req.params.exspecies;
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
@@ -267,7 +267,7 @@ router.get('/gene-loss/:anspecies/:exspecies', (req, res) => {
 });
 
 //router.get('/gene-gain/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
-router.get('/gene-gain/:anspecies/:exspecies', (req, res) => {
+router.get('/gene-gain/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
     var exspecies = req.params.exspecies;
     var anspecies = req.params.anspecies;
     var page = parseInt(req.query.page);
@@ -288,7 +288,7 @@ router.get('/gene-gain/:anspecies/:exspecies', (req, res) => {
 });
 
 //router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
-router.get('/gene-no-model/:exspecies', (req, res) => {
+router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
     var exspecies = req.params.exspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
