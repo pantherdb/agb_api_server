@@ -42,24 +42,20 @@ module.exports.getListByProxySpecies = (species, proxy_spe, pageNo, size, callba
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
     GeneListFlat.find({'species_short': species}).count({}).exec(callback);
 }
-module.exports.getListsBySpecies = (species, pageNo, size, callback) => {
-    GeneListFlat.find({'species_short': species},{'_id':0,'species':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
-}
 
+module.exports.getPassedGeneNum = (aSpecies, eSpecies, pageNo, size, callback) => {
 
-module.exports.getGeneByPtn = (ptn, callback) => {
-    GeneListFlat.find({'ptn': ptn}, {'proxy_gene':1}).exec(callback);
 }
 
 module.exports.getPassedGenes = (aSpecies, eSpecies, pageNo, size, callback) => {
     GeneListFlat.find(
         {$and:
             [
-                {$or: [{'species_short': aSpecies, 'proxy_org_long': eSpecies}, {'species_short': aSpecies, 'proxy_org_short': eSpecies}]},
-                {'all_desendant_gene_ptn_in_proxy_species': {$not: /NOT_AVAILABLE/}}
+                {$or: [{'species_short': aSpecies, 'descent_spe_long': eSpecies}, {'species_short': aSpecies, 'descent_spe_short': eSpecies}]},
+                {'desendant_ptns': {$not: /NOT_AVAILABLE/}}
             ] 
         },
-        {'_id':0,'event':0,'sequence':0,'proxy_org_short':0,'proxy_org_long':0,'family_name':0,'species_short':0, 'species_long':0, "proxy_gene":0, "proxy_gene_ptn":0, "proxy_gene_name":0,"proxy_gene_symbol":0, "all_desendant_longId_in_proxy_species":0, "proxy_of_ancestor_spe":0, 'pthr':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+        {'_id':0,'event':0,'sequence':0,'descent_spe_short':0,'descent_spe_long':0, 'species_short':0, 'species_long':0, "proxy_gene":0, "proxy_gene_ptn":0, "proxy_gene_name":0,"proxy_gene_symbol":0, "descent_longIds":0, 'pthr':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getLostGenes = (aSpecies, eSpecies, pageNo, size, callback) => {
