@@ -35,7 +35,7 @@ module.exports.getProxySpecies = (species, callback) => {
 
 module.exports.getListByProxySpecies = (species, proxy_spe, pageNo, size, callback) => {
     GeneListFlat.find({$or: [{'species_short': species, 'descent_spe_long': proxy_spe}, {'species_short': species, 'descent_spe_long': proxy_spe}]},
-    {'_id':0,'event':0,'descent_spe_short':0,'descent_spe_long':0,'species_short':0, 'species_long':0, "descent_longIds":0, "descentant_ptns":0, 'descent_gnames':0, 'proxy_gene_ptn':0, 'proxy_gene_name':0, 'proxy_gene_symbol':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+    {'_id':0,'event':0,'descent_spe_short':0,'descent_spe_long':0,'species_short':0, 'species_long':0, "descent_longIds":0, "descent_ptns":0, 'descent_gnames':0, 'proxy_gene_ptn':0, 'proxy_gene_name':0, 'proxy_gene_symbol':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getTotalGeneCountBySpecies = (species, callback) => {
@@ -51,7 +51,7 @@ module.exports.getPassedGenes = (aSpecies, eSpecies, pageNo, size, callback) => 
         {$and:
             [
                 {$or: [{'species_short': aSpecies, 'descent_spe_long': eSpecies}, {'species_short': aSpecies, 'descent_spe_short': eSpecies}]},
-                {'desendant_ptns': {$not: /NOT_AVAILABLE/}}
+                {'descent_ptns': {$not: /NOT_AVAILABLE/}}
             ] 
         },
         {'_id':0,'event':0,'descent_spe_short':0,'descent_spe_long':0, 'species_short':0, 'species_long':0, "proxy_gene":0, "proxy_gene_ptn":0, "proxy_gene_name":0,"proxy_gene_symbol":0, "descent_longIds":0, 'pthr':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
@@ -62,10 +62,10 @@ module.exports.getLostGenes = (aSpecies, eSpecies, pageNo, size, callback) => {
         {$and:
             [
                 {$or: [{'species_short': aSpecies, 'descent_spe_long': eSpecies}, {'species_short': aSpecies, 'descent_spe_short': eSpecies}]},
-                {'desendant_ptns': /NOT_AVAILABLE/}
+                {'descent_ptns': /NOT_AVAILABLE/}
             ] 
         },
-        {'_id':0,'event':0,'descent_spe_short':0,'descent_spe_long':0,'species_short':0, 'species_long':0, "proxy_gene":0, "desendant_ptns":0, 'descent_gnames':0, "descent_longIds":0,'pthr':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+        {'_id':0,'event':0,'descent_spe_short':0,'descent_spe_long':0,'species_short':0, 'species_long':0, "proxy_gene":0, "descent_ptns":0, 'descent_gnames':0, "descent_longIds":0,'pthr':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getNotModeledGenes = (eSpecies, pageNo, size, callback) => {
@@ -76,6 +76,6 @@ module.exports.getNotModeledGenes = (eSpecies, pageNo, size, callback) => {
                 {'pthr': /NOT_AVAILABLE/}
             ] 
         },
-        {'_id':0,'event':0,'species_short':0, 'species_long':0, "proxy_gene":0, 'pthr':0, "desendant_ptns":0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+        {'_id':0,'event':0,'species_short':0, 'species_long':0, "proxy_gene":0, 'pthr':0, "descent_ptns":0}).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
