@@ -25,7 +25,7 @@ const ShortGenelistSchema = mongoose.Schema({
 }); */
 
 //const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
-const ShortGeneList = module.exports = mongoose.model('short_lists', ShortGenelistSchema );
+const ShortGeneList = module.exports = mongoose.model('short_genelists', ShortGenelistSchema );
 
 //const GeneListFlat = module.exports = mongoose.model('flat_genelists', GenelistFlatSchema );
 
