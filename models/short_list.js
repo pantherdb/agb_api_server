@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const ShortGenelistSchema = mongoose.Schema({
     ptn: String,
-    species:String,
+    species_short:String,
     species_long:String,
     name: String,
     pthr: String,
