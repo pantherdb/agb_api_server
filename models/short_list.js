@@ -10,7 +10,7 @@ const ShortGenelistSchema = mongoose.Schema({
     name: String,
     pthr: String,
     ancestor_species: String,
-    proxy_gene: String,
+    default_proxy_gene: String,
 });
 
 /* const GenelistFlatSchema = mongoose.Schema({
@@ -41,7 +41,7 @@ module.exports.getGainedGenes = (anspecies, exspecies, page, limit, callback) =>
             {'ancestor_species': {$not: new RegExp(anspecies)}, 'pthr': {$not: /NOT_AVAILABLE/}},
             {$or: [{'species_short': exspecies}, {'species_long': exspecies}]}
         ]}, 
-        {'_id':0,'species':0, 'species_long':0, 'pthr':0, 'ancestor_species':0, 'proxy_gene':0}
+        {'_id':0,'species_short':0, 'species_long':0, 'pthr':0, 'ancestor_species':0, 'default_proxy_gene':0}
     ).skip(limit*(page-1)).limit(limit).exec(callback);
 }
 
