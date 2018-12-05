@@ -6,22 +6,20 @@ const mongoose = require('mongoose');
 const GenelistSchema = mongoose.Schema({
     ptn: String,
     name: String,
-    species: String,
+    species_long: String,
+    species_short: String,
     sequence: String,
+    longId: String,
     event: String,
     pthr: String,
     family_name: String,
-    direct_paint_annotations: [{
-        go_name: String,
-        go_accession: String,
-    }],
-    inherited_paint_annotations: [{
+    paint_annotations: [{
         go_name: String,
         go_accession: String,
     }],
     proxy_genes: [{
-        proxy_org_short: String,
-        proxy_org_long: String,
+        proxy_spe_short: String,
+        proxy_spe_long: String,
         proxy_gene: String,
     }],
 });

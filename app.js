@@ -1,6 +1,8 @@
 #!/usr/bin/env nodejs
 // We’ll declare all our dependencies here
 const express = require('express');
+const fs = require('fs');
+const https = require('https')
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -52,6 +54,14 @@ app.use('/genelist', genelist);
 
 
 //Listen to port 3000
-app.listen(port, () => {
+/* app.listen(port, () => {
     console.log(`Starting the server at port ${port}`);
-});
+}); */
+
+https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+  }, app)
+  .listen(3000, function () {
+    console.log('Starting the server at port ${port}')
+  })
