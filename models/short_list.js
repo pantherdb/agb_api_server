@@ -43,11 +43,7 @@ module.exports.getGainedGenes = (anspecies, exspecies, page, limit, callback) =>
         ]}, 
         //{'_id':0,'species':0, 'species_long':0, 'pthr':0, 'ancestor_species':0, 'proxy_gene':0}
         {'_id':0,'species':0, 'species_long':0, 'pthr':0, 'ancestor_species':0}
-    ).map(doc => {
-        doc.panther_gene_id = doc.proxy_gene;
-        delete doc['proxy_gene'];
-        return doc;
-    }).skip(limit*(page-1)).limit(limit).exec(callback);
+    ).skip(limit*(page-1)).limit(limit).exec(callback);
 }
 
 /* module.exports.getGeneGains = (anspecies, exspecies, page, limit, callback) => {
