@@ -41,7 +41,7 @@ module.exports.getGainedGenes = (anspecies, exspecies, page, limit, callback) =>
             {'ancestor_species': {$not: new RegExp(anspecies)}, 'pthr': {$not: /NOT_AVAILABLE/}},
             {$or: [{'species': exspecies}, {'species_long': exspecies}]}
         ]}, 
-        {'_id':0,'species':0, 'species_long':0, 'pthr':0, 'ancestor_species':0, 'proxy_gene':0}
+        {'_id':0,'species':0, 'species_long':0, 'pthr':0, 'ancestor_species':0, 'proxy_gene':1}
     ).skip(limit*(page-1)).limit(limit).exec(callback);
 }
 
