@@ -54,7 +54,9 @@ module.exports.getPassedGenes = (aSpecies, eSpecies, pageNo, size, callback) => 
                 {'descent_ptns': {$not: /NOT_AVAILABLE/}}
             ] 
         },
-        {'_id':0,'event':0,'descent_spe_short':0,'descent_spe_long':0, 'species_short':0, 'species_long':0, "proxy_gene":0, "proxy_gene_ptn":0, "proxy_gene_name":0,"proxy_gene_symbol":0, "descent_longIds":0, 'pthr':0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+        /* {'_id':0,'event':0,'descent_spe_short':0,'descent_spe_long':0, 'species_short':0, 'species_long':0, "proxy_gene":0, "proxy_gene_ptn":0, "proxy_gene_name":0,"proxy_gene_symbol":0, "descent_longIds":0, 'pthr':0} */
+        {'_id':0,'event':0,'descent_spe_short':0,'descent_spe_long':0, 'species_short':0, 'species_long':0, "proxy_gene":0, "proxy_gene_ptn":0, "proxy_gene_name":0,"proxy_gene_symbol":0,'pthr':0}
+        ).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
 module.exports.getLostGenes = (aSpecies, eSpecies, pageNo, size, callback) => {
