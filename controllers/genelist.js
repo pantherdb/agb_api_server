@@ -279,11 +279,11 @@ router.get('/gene-gain/:anspecies/:exspecies', cache('2 hours'), (req, res) => {
         else {
             //var totalPages = Math.ceil(totalCount / size);
             //console.log(lists);
-            lists = lists.map(doc => {
+            /* lists = lists.map(doc => {
                 doc.panther_gene_id = doc.proxy_gene;
                 delete doc['proxy_gene'];
                 return doc;
-            });
+            }); */
             var uniqueItems = [...new Set(lists)];
             var total = uniqueItems.length;
             res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
