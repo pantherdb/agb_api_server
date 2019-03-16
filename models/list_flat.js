@@ -78,6 +78,8 @@ module.exports.getNotModeledGenes = (eSpecies, pageNo, size, callback) => {
                 {'pthr': /NOT_AVAILABLE/}
             ] 
         },
-        {'_id':0,'event':0,'species_short':0, 'species_long':0, "proxy_gene":0, 'pthr':0, "descent_ptns":0}).skip(size*(pageNo-1)).limit(size).exec(callback);
+        //{'_id':0,'event':0,'species_short':0, 'species_long':0, "proxy_gene":0, 'pthr':0, "descent_ptns":0}
+        {'_id':0,'event':0,'species_short':0, 'species_long':0, 'pthr':0, "descent_ptns":0}
+        ).skip(size*(pageNo-1)).limit(size).exec(callback);
 }
 
