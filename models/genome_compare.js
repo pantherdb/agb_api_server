@@ -31,7 +31,7 @@ const GenomeCompareSchema = mongoose.Schema({
 	duplication_node_ptn : String
 },{ strict: false });
 
-const GenomeCompare = module.exports = mongoose.model('genomeCompare', GenomeCompareSchema );
+const GenomeCompare = module.exports = mongoose.model('genomeComparison', GenomeCompareSchema );
 
 
 
