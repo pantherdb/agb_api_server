@@ -29,7 +29,7 @@ const GenomeCompareSchema = mongoose.Schema({
 	HorizTrans_ptn : String,
 	recipient_gene_ptn : String,
 	duplication_node_ptn : String
-});
+},{ strict: false });
 
 const GenomeCompare = module.exports = mongoose.model('genomeCompare', GenomeCompareSchema );
 
