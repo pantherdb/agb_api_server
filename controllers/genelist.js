@@ -319,6 +319,7 @@ router.get('/direct-inherited', (req,res) => {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
         else {
+            console.log(lists);
             var uniqueItems = [...new Set(lists)];
             //uniqueItems.map(gene=>gene.all_desendant_ptn_in_proxy_species = gene.all_desendant_ptn_in_proxy_species.split(','));
             var total = uniqueItems.length;
