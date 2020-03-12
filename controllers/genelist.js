@@ -313,9 +313,7 @@ router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
 
 router.get('/direct-inherited/:parspecies', cache('2 hours'), (req, res) => {
     var parspecies = req.params.parspecies;
-    var page = parseInt(req.query.page);
-    var limit = parseInt(req.query.limit);
-    GenomeCompare.getDirectInheritedGenes(parspecies, page, limit, (err, lists) => {
+    GenomeCompare.getDirectInheritedGenes(parspecies, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
