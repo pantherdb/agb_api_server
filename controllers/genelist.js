@@ -311,7 +311,7 @@ router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
     });
 });
 
-router.get('/direct-inherited', (req, res) => {
+router.get('/direct-inherited', (res) => {
     //var parspecies = req.params.parspecies;
     GenomeCompare.getDirectInheritedGenes((err, lists) => {
         if (err) {
