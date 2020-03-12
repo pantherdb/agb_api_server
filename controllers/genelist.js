@@ -328,6 +328,7 @@ router.get('/direct-inherited', (req,res) => {
                 var count = all_desend_gene.split(',').length;
                 totalExtant = totalExtant + count;
             } */
+            console.log(lists);
             res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
             res.end();
         }
