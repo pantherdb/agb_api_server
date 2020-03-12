@@ -94,6 +94,7 @@ router.get('/species/:species/:proxy_spe', cache('2 hours'), (req, res) => {
                     }
                     else {
                         //var totalPages = Math.ceil(totalCount / size);
+                        console.log(lists);
                         res.write(JSON.stringify({ success: true, total: totalCount, lists: lists }, null, 2));
                         res.end();
                     }
