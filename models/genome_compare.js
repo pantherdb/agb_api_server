@@ -38,7 +38,7 @@ const GenomeCompare = module.exports = mongoose.model('genomeCompare', GenomeCom
 module.exports.getDirectInheritedGenes = (parspecies, chilspecies, page, limit, callback) => {
     GenomeCompare.find(
         {
-            'parent_species_short': {$eq: new RegExp(parspecies)}, 'child_species_short': {$eq: new RegExp(chilspecies)}, 'event': {$eq: new RegExp('DirectInheritance')}
+            'parent_species_short': parspecies, 'child_species_short': chilspecies, 'event': 'AncestralGene-DirectInheritanceFromOneGene'
         }, 
         //{'_id':0,'species':0, 'species_long':0, 'pthr':0, 'ancestor_species':0, 'proxy_gene':0}
         {'_id':0}
