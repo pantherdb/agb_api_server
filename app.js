@@ -20,7 +20,8 @@ db.once("open", function(callback) {
 });
 
 //Declaring Port
-const port = 3003;
+//const port = 3003;
+const port = 3004;
 
 //Initialize our app variable
 const app = express();
