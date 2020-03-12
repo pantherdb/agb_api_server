@@ -35,7 +35,7 @@ const GenomeCompare = module.exports = mongoose.model('genomeCompare', GenomeCom
 
 
 
-module.exports.getDirectInheritedGenes = (parspecies, chilspecies, page, limit, callback) => {
+module.exports.getDirectInheritedGenes = (parspecies, page, limit, callback) => {
     GenomeCompare.find(
         {'parent_species_short': parspecies},
         {'_id':0}

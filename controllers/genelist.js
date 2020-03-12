@@ -311,12 +311,11 @@ router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
     });
 });
 
-router.get('/genome-comparison/direct-inherited/:parspecies/:chilspecies', cache('2 hours'), (req, res) => {
-    var chilspecies = req.params.chilspecies;
+router.get('/direct-inherited/:parspecies', cache('2 hours'), (req, res) => {
     var parspecies = req.params.parspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    GenomeCompare.getDirectInheritedGenes(parspecies, chilspecies, page, limit, (err, lists) => {
+    GenomeCompare.getDirectInheritedGenes(parspecies, page, limit, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
