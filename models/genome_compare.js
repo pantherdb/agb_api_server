@@ -29,14 +29,14 @@ const GenomeCompareSchema = mongoose.Schema({
 	HorizTrans_ptn : String,
 	recipient_gene_ptn : String,
 	duplication_node_ptn : String,
-},{ strict: false });
+},{strict: false});
 
 const GenomeCompare = module.exports = mongoose.model('genomeComparison', GenomeCompareSchema );
 
 
 
 module.exports.getDirectInheritedGenes = (callback) => {
-    GenomeCompare.find({'event': 'AncestralGene-DirectInheritanceFromOneGene'}).exec(callback);
+    GenomeCompare.find({event: 'AncestralGene-DirectInheritanceFromOneGene'}).exec(callback);
 }
 
 //newList.save is used to insert the document into MongoDB
