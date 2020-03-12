@@ -5,6 +5,7 @@ const genelist = require('../models/list');
 const shortlist = require('../models/short_list');
 const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
+const GenomeCompare = require('../models/genome_compare');
 
 const request = require('request');
 const cheerio = require('cheerio');
@@ -304,6 +305,32 @@ router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
         else {
             var uniqueItems = [...new Set(lists)];
             var total = uniqueItems.length;
+            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
+            res.end();
+        }
+    });
+});
+
+router.get('/genome-comparison/direct-inherited/:parspecies/:chilspecies', cache('2 hours'), (req, res) => {
+    var chilspecies = req.params.chilspecies;
+    var parspecies = req.params.parspecies;
+    var page = parseInt(req.query.page);
+    var limit = parseInt(req.query.limit);
+    GenomeCompare.getDirectInheritedGenes(parspecies, chilspecies, page, limit, (err, lists) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+        }
+        else {
+            var uniqueItems = [...new Set(lists)];
+            //uniqueItems.map(gene=>gene.all_desendant_ptn_in_proxy_species = gene.all_desendant_ptn_in_proxy_species.split(','));
+            var total = uniqueItems.length;
+            /* var totalExtant;
+            for (var i = 0; i < uniqueItems.length; i++) {
+                var gene = uniqueItems[i];
+                var all_desend_gene = gene['all_desendant_ptn_in_proxy_species'];
+                var count = all_desend_gene.split(',').length;
+                totalExtant = totalExtant + count;
+            } */
             res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
             res.end();
         }
