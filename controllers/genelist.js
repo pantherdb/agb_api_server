@@ -43,7 +43,7 @@ let cache = apicache.middleware;
     });
 }); */
 
-router.get('/species/:species', cache('2 hours'), (req, res) => {
+router.get('/species/:species', (req, res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
