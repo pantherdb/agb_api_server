@@ -314,8 +314,8 @@ router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
 
 router.get('/direct-inherited/:species', (req,res) => {
     var species = req.params.species;
-    //GenomeCompare.getDirectInheritedGenes((err, lists) => {
-    Species.getSpeciesDetail(species, (err, lists) => {
+    GenomeCompare.getDirectInheritedGenes(species, (err, lists) => {
+    //Species.getSpeciesDetail(species, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
