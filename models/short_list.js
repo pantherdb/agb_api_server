@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 //Define GenelistSchema
 
-const ShortGenelistSchema = mongoose.Schema({
+/* const ShortGenelistSchema = mongoose.Schema({
     ptn: String,
     species_short:String,
     species_long:String,
@@ -11,7 +11,9 @@ const ShortGenelistSchema = mongoose.Schema({
     pthr: String,
     ancestor_species: String,
     default_proxy_gene: String,
-});
+}); */
+
+const ShortGenelistSchema = mongoose.Schema({ any: {} });
 
 /* const GenelistFlatSchema = mongoose.Schema({
     ptn: String,
