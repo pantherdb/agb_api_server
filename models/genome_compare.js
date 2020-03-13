@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 //Define GenelistSchema
 
-const GenomeCompareSchema = mongoose.Schema({
+/* const GenomeCompareSchema = mongoose.Schema({
     species_short : {type: String, required:false},
 	species_long : {type: String, required:false},
 	event : {type: String, required:false},
@@ -29,7 +29,8 @@ const GenomeCompareSchema = mongoose.Schema({
 	HorizTrans_ptn : {type: String, required:false},
 	recipient_gene_ptn : {type: String, required:false},
 	duplication_node_ptn : {type: String, required:false},
-},{strict: false});
+},{strict: false}); */
+const GenomeCompareSchema = mongoose.Schema({ any: Schema.Types.Mixed })
 
 const GenomeCompare = module.exports = mongoose.model('genomeComparison', GenomeCompareSchema );
 
