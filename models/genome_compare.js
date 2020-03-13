@@ -37,8 +37,8 @@ const GenomeCompare = module.exports = mongoose.model('genomeComparison', Genome
 
 
 module.exports.getDirectInheritedGenes = (species, callback) => {
-    //GenomeCompare.find({event: 'AncestralGene-DirectInheritanceFromOneGene'}).exec(callback);
-    GenomeCompare.find({'child_species_short': species, 'event': 'AncestralGene-DirectInheritanceFromOneGene'}).limit(20).exec(callback);
+    GenomeCompare.find({}).exec(callback);
+    //GenomeCompare.find({'child_species_short': species, 'event': 'AncestralGene-DirectInheritanceFromOneGene'}).limit(20).exec(callback);
 }
 
 //newList.save is used to insert the document into MongoDB
