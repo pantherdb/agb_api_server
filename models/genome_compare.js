@@ -30,7 +30,7 @@ const mongoose = require('mongoose');
 	recipient_gene_ptn : {type: String, required:false},
 	duplication_node_ptn : {type: String, required:false},
 },{strict: false}); */
-const GenomeCompareSchema = mongoose.Schema({ any: {} })
+const GenomeCompareSchema = mongoose.Schema({ any: {} });
 
 const GenomeCompare = module.exports = mongoose.model('genomeComparison', GenomeCompareSchema );
 

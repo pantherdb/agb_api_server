@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 //Define GenelistSchema
 
-const GenelistSchema = mongoose.Schema({
+/* const GenelistSchema = mongoose.Schema({
     ptn: String,
     name: String,
     species: String,
@@ -24,8 +24,9 @@ const GenelistSchema = mongoose.Schema({
         proxy_org_long: String,
         proxy_gene: String,
     }],
-});
+}); */
 
+const GenelistSchema = mongoose.Schema({ any: {} });
 const GeneList = module.exports = mongoose.model('genelists', GenelistSchema );
 //const ShortGeneList = module.exports = mongoose.model('gene_one_proxy_list', ShortGenelistSchema );
 
