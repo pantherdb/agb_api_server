@@ -12,3 +12,9 @@ module.exports.getAllHistory = (callback) => {
 	//console.log(parspecies);
 	//GenomeCompare.find().exec(callback);
 }
+
+module.exports.getDirectInheritedGenes = (parspecies, page, limit, callback) => {
+	GeneHistory.find({$or: [{'parent_species_short': parspecies}, {'parent_species_long': parspecies}]}).skip(limit*(page-1)).limit(limit).exec(callback);
+	//console.log(parspecies);
+	//GenomeCompare.find().exec(callback);
+}
