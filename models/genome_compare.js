@@ -26,7 +26,7 @@ module.exports.getDirectInheritedGenes = (parspecies, page, limit, callback) => 
 }
 
 module.exports.getAllEvents = (callback) => {
-	GenomeCompare.find().distinct('event').exec(callback);
+	GenomeCompare.find().limit(20).exec(callback);
 	//console.log(parspecies);
 	//GenomeCompare.find().exec(callback);
 }
