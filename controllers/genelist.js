@@ -5,7 +5,7 @@ const genelist = require('../models/list');
 const shortlist = require('../models/short_list');
 const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
-const GenomeCompare = require('../models/genome_compare');
+const genomeCompare = require('../models/genome_compare');
 
 const request = require('request');
 const cheerio = require('cheerio');
@@ -315,7 +315,7 @@ router.get('/direct-inherited/:parspecies', (req, res) => {
     var parspecies = req.params.parspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    GenomeCompare.getDirectInheritedGenes(parspecies, page, limit, (err, lists) => {
+    genomeCompare.getDirectInheritedGenes(parspecies, page, limit, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
