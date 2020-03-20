@@ -22,7 +22,7 @@ module.exports.getDirectInheritedGenes = (parspecies, chspecies, page, limit, ca
         ]}
     ]}
         
-        ).skip(limit*(page-1)).limit(limit).exec(callback);
+        ).skip(limit*(page-1)).limit(20).exec(callback);
 	//console.log(parspecies);
 	//GenomeCompare.find().exec(callback);
 }
