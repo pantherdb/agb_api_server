@@ -311,7 +311,7 @@ router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
     });
 });
 
-router.get('/direct-inherited/:parspecies', cache('2 hours'), (req, res) => {
+router.get('/direct-inherited/:parspecies', (req, res) => {
     var parspecies = req.params.parspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);

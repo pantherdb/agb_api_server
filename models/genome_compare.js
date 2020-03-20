@@ -4,32 +4,16 @@ const mongoose = require('mongoose');
 //Define GenelistSchema
 
 const GenomeCompareSchema = mongoose.Schema({
-    species_short : String,
-	species_long : String,
-	event : String,
+    event : String,
 	pthr : String,
-	new_gene_ptn : String,
 	parent_species_short : String,
 	parent_species_long : String,
 	child_species_short : String,
 	child_species_long : String,
-	parent_gene_ptn : String,
-	child_loss_ptn : String,
-	child_gene_ptn : String,
-	duplication_ptn : String,
-	child_extant_species_short : String,
-	child_extant_species_long : String,
-	parent_ancestral_gene_ptn : String,
-	child_extant_gene_ptn : String,
-	donor_species_short : String,
-	donor_species_long : String,
-	donor_gene_ptn : String,
-	recipient_species_short : String,
-	recipient_species_long : String,
-	HorizTrans_ptn : String,
-	recipient_gene_ptn : String,
-	duplication_node_ptn : String
-},{ strict: false });
+	event_ptn: String,
+	parent_gene_ptn: String,
+	child_gene_ptn: String,
+});
 
 const GenomeCompare = module.exports = mongoose.model('genomeComparison', GenomeCompareSchema );
 
