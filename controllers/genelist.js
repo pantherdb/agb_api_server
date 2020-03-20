@@ -315,22 +315,13 @@ router.get('/direct-inherited/:parspecies', (req, res) => {
     var parspecies = req.params.parspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    genomeCompare.getDirectInheritedGenes(parspecies, page, limit, (err, lists) => {
+    geneHistory.getDirectInheritedGenes(parspecies, page, limit, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }
         else {
-            //console.log(lists);
             var uniqueItems = [...new Set(lists)];
-            //uniqueItems.map(gene=>gene.all_desendant_ptn_in_proxy_species = gene.all_desendant_ptn_in_proxy_species.split(','));
             var total = uniqueItems.length;
-            /* var totalExtant;
-            for (var i = 0; i < uniqueItems.length; i++) {
-                var gene = uniqueItems[i];
-                var all_desend_gene = gene['all_desendant_ptn_in_proxy_species'];
-                var count = all_desend_gene.split(',').length;
-                totalExtant = totalExtant + count;
-            } */
             res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
             res.end();
         }
