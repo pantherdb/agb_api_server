@@ -6,7 +6,7 @@ const shortlist = require('../models/short_list');
 const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
 const genomeCompare = require('../models/genome_compare');
-
+const geneHistory = require('../models/gene_history');
 const request = require('request');
 const cheerio = require('cheerio');
 
@@ -338,7 +338,7 @@ router.get('/direct-inherited/:parspecies', (req, res) => {
 });
 
 router.get('/event-list', (req, res) => {
-    genomeCompare.getAllEvents((err, lists) => {
+    geneHistory.getAllEvents((err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load species list. Error: ${err}` });
         }
