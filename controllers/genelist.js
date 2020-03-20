@@ -338,7 +338,7 @@ router.get('/direct-inherited/:parspecies', (req, res) => {
 });
 
 router.get('/event-list', (req, res) => {
-    geneHistory.getAllEvents((err, lists) => {
+    geneHistory.getAllHistory((err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load species list. Error: ${err}` });
         }
