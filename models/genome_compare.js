@@ -21,7 +21,7 @@ const GenomeCompare = module.exports = mongoose.model('genomeComparison', Genome
 
 module.exports.getDirectInheritedGenes = (parspecies, page, limit, callback) => {
 	GenomeCompare.find({$or: [{'parent_species_short': parspecies}, {'parent_species_long': parspecies}]}).skip(limit*(page-1)).limit(limit).exec(callback);
-	console.log("OK");
+	console.log(parspecies);
 }
 
 //newList.save is used to insert the document into MongoDB
