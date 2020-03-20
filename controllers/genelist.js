@@ -337,4 +337,17 @@ router.get('/direct-inherited/:parspecies', (req, res) => {
     });
 });
 
+router.get('/event-list', (req, res) => {
+    genomeCompare.getAllEvents((err, lists) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to load species list. Error: ${err}` });
+        }
+        else {
+            //var totalPages = Math.ceil(totalCount / size);
+            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.end();
+        }
+    })
+});
+
 module.exports = router;
