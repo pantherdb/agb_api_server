@@ -18,7 +18,8 @@ module.exports.getDirectInheritedGenes = (parspecies, chspecies, page, limit, ca
         {$or: [{'parent_species_short': parspecies}, {'parent_species_long': parspecies}]},
         {$or: [{'child_species_short': chspecies}, {'child_species_long': chspecies}]},
         {$or: [{'event':'AncestralGene-DirectInheritanceFromOneGene'},
-         {'event':'ExtantGene-DirectInheritanceFromOneGene'}]}
+         {'event':'ExtantGene-DirectInheritanceFromOneGene'}
+        ]}
     ]}
         
         ).skip(limit*(page-1)).limit(limit).exec(callback);
