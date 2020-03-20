@@ -5,7 +5,6 @@ const genelist = require('../models/list');
 const shortlist = require('../models/short_list');
 const genelist_flat = require('../models/list_flat');
 const Species = require('../models/species');
-const genomeCompare = require('../models/genome_compare');
 const geneHistory = require('../models/gene_history');
 const request = require('request');
 const cheerio = require('cheerio');
@@ -311,8 +310,9 @@ router.get('/gene-no-model/:exspecies', cache('2 hours'), (req, res) => {
     });
 });
 
-router.get('/direct-inherited/:parspecies', (req, res) => {
+router.get('/direct-inherited/:parspecies/:chspecies', (req, res) => {
     var parspecies = req.params.parspecies;
+    var chspecies = req.params.chspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
     geneHistory.getDirectInheritedGenes(parspecies, page, limit, (err, lists) => {
@@ -329,12 +329,11 @@ router.get('/direct-inherited/:parspecies', (req, res) => {
 });
 
 router.get('/event-list', (req, res) => {
-    geneHistory.getAllHistory((err, lists) => {
+    geneHistory.getAllEvent((err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load species list. Error: ${err}` });
         }
         else {
-            //var totalPages = Math.ceil(totalCount / size);
             res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
             res.end();
         }

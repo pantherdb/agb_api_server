@@ -7,14 +7,21 @@ const GeneHistorySchema = mongoose.Schema({
 
 const GeneHistory = module.exports = mongoose.model('gene_history', GeneHistorySchema, 'gene_history' );
 
-module.exports.getAllHistory = (callback) => {
-	GeneHistory.find().exec(callback);
+module.exports.getAllEvent = (callback) => {
+	GeneHistory.find().distinct('event').exec(callback);
 	//console.log(parspecies);
 	//GenomeCompare.find().exec(callback);
 }
 
-module.exports.getDirectInheritedGenes = (parspecies, page, limit, callback) => {
-	GeneHistory.find({$or: [{'parent_species_short': parspecies}, {'parent_species_long': parspecies}]}).skip(limit*(page-1)).limit(limit).exec(callback);
+module.exports.getDirectInheritedGenes = (parspecies, chspecies, page, limit, callback) => {
+	GeneHistory.find({$and:[
+        {$or: [{'parent_species_short': parspecies}, {'parent_species_long': parspecies}]},
+        {$or: [{'child_species_short': chspecies}, {'child_species_long': chspecies}]},
+        {$or: [{'event':'AncestralGene-DirectInheritanceFromOneGene'},
+         {'event':'ExtantGene-DirectInheritanceFromOneGene'}]}
+    ]}
+        
+        ).skip(limit*(page-1)).limit(limit).exec(callback);
 	//console.log(parspecies);
 	//GenomeCompare.find().exec(callback);
 }
