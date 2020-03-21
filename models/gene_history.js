@@ -24,7 +24,7 @@ module.exports.getDirectInheritedGenes = (parspecies, chspecies, page, limit, ca
         ]}
         /* {'parent_species_short': parspecies, 'child_species_short': chspecies, 'event':'AncestralGene-DirectInheritanceFromOneGene'} */
         
-        ).skip(limit*(page-1)).limit(20).exec(callback);
+        ).skip(limit*(page-1)).limit(limit).exec(callback);
 	//console.log(parspecies);
 	//GenomeCompare.find().exec(callback);
 }
