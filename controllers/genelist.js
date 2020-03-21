@@ -315,7 +315,7 @@ router.get('/direct-inherited/:parspecies/:chspecies', (req, res) => {
     var chspecies = req.params.chspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    geneHistory.getDirectInheritedGenes(parspecies, page, limit, (err, lists) => {
+    geneHistory.getDirectInheritedGenes(parspecies, chspecies,page, limit, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
         }

@@ -22,7 +22,7 @@ module.exports.getDirectInheritedGenes = (parspecies, chspecies, page, limit, ca
          {'event':'ExtantGene-DirectInheritanceFromOneGene'}
         ]}
         ]} */
-        {'parent_species_short': parspecies}
+        {'parent_species_short': parspecies, 'child_species_short': chspecies, 'event':'AncestralGene-DirectInheritanceFromOneGene'}
         
         ).skip(limit*(page-1)).limit(20).exec(callback);
 	//console.log(parspecies);
