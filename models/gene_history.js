@@ -40,3 +40,17 @@ module.exports.getDuplicatedGenes = (parspecies, chspecies, page, limit, callbac
         
         ).skip(limit*(page-1)).limit(limit).exec(callback);
 }
+
+module.exports.getDeNovoGenes = (species, page, limit, callback) => {
+	GeneHistory.find(
+        {$and:[
+        
+        {$or: [{'child_species_short': chspecies}, {'child_species_long': chspecies}]},
+        {'event':/DeNovoGain/}
+        
+        ]},
+
+        {'_id':0}
+        
+        ).skip(limit*(page-1)).limit(limit).exec(callback);
+}

@@ -348,6 +348,24 @@ router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
     });
 });
 
+router.get('/denovo/:species', (req, res) => {
+    var species = req.params.parspecies;
+    var page = parseInt(req.query.page);
+    var limit = parseInt(req.query.limit);
+    geneHistory.getDeNovoGenes(species, page, limit, (err, lists) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+        }
+        else {
+            //console.log(lists);
+            var uniqueItems = [...new Set(lists)];
+            var total = uniqueItems.length;
+            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
+            res.end();
+        }
+    });
+});
+
 router.get('/event-list', (req, res) => {
     geneHistory.getAllEvent((err, lists) => {
         if (err) {
