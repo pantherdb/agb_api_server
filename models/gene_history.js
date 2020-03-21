@@ -15,14 +15,14 @@ module.exports.getAllEvent = (callback) => {
 
 module.exports.getDirectInheritedGenes = (parspecies, chspecies, page, limit, callback) => {
 	GeneHistory.find(
-        /* {$and:[
+        {$and:[
         {$or: [{'parent_species_short': parspecies}, {'parent_species_long': parspecies}]},
         {$or: [{'child_species_short': chspecies}, {'child_species_long': chspecies}]},
         {$or: [{'event':'AncestralGene-DirectInheritanceFromOneGene'},
          {'event':'ExtantGene-DirectInheritanceFromOneGene'}
         ]}
-        ]} */
-        {'parent_species_short': parspecies, 'child_species_short': chspecies, 'event':'AncestralGene-DirectInheritanceFromOneGene'}
+        ]}
+        /* {'parent_species_short': parspecies, 'child_species_short': chspecies, 'event':'AncestralGene-DirectInheritanceFromOneGene'} */
         
         ).skip(limit*(page-1)).limit(20).exec(callback);
 	//console.log(parspecies);
