@@ -329,6 +329,25 @@ router.get('/direct-inherited/:parspecies/:chspecies', (req, res) => {
     });
 });
 
+router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
+    var parspecies = req.params.parspecies;
+    var chspecies = req.params.chspecies;
+    var page = parseInt(req.query.page);
+    var limit = parseInt(req.query.limit);
+    geneHistory.getDuplicatedGenes(parspecies, chspecies,page, limit, (err, lists) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+        }
+        else {
+            //console.log(lists);
+            var uniqueItems = [...new Set(lists)];
+            var total = uniqueItems.length;
+            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
+            res.end();
+        }
+    });
+});
+
 router.get('/event-list', (req, res) => {
     geneHistory.getAllEvent((err, lists) => {
         if (err) {
