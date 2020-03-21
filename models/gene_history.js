@@ -45,7 +45,7 @@ module.exports.getDeNovoGenes = (species, page, limit, callback) => {
 	GeneHistory.find(
         {$and:[
         
-        {$or: [{'child_species_short': chspecies}, {'child_species_long': chspecies}]},
+        {$or: [{'child_species_short': species}, {'child_species_long': species}]},
         {'event':/DeNovoGain/}
         
         ]},

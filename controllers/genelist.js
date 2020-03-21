@@ -349,7 +349,7 @@ router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
 });
 
 router.get('/denovo/:species', (req, res) => {
-    var species = req.params.parspecies;
+    var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
     geneHistory.getDeNovoGenes(species, page, limit, (err, lists) => {
