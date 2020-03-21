@@ -50,6 +50,20 @@ module.exports.getDeNovoGenes = (species, page, limit, callback) => {
         
         ]},
 
+        {'_id':0,"parent_species_short":0,"parent_species_long":0,"event_ptn":0,"parent_gene_ptn":0}
+        
+        ).skip(limit*(page-1)).limit(limit).exec(callback);
+}
+
+module.exports.getHorizTransGenes = (species, page, limit, callback) => {
+	GeneHistory.find(
+        {$and:[
+        
+        {$or: [{'child_species_short': species}, {'child_species_long': species}]},
+        {'event':/GainByHorizTrans/}
+        
+        ]},
+
         {'_id':0}
         
         ).skip(limit*(page-1)).limit(limit).exec(callback);
