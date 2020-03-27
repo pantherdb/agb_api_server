@@ -68,3 +68,17 @@ module.exports.getHorizTransGenes = (species, page, limit, callback) => {
         
         ).skip(limit*(page-1)).limit(limit).exec(callback);
 }
+
+module.exports.getLossGenes = (species, page, limit, callback) => {
+	GeneHistory.find(
+        {$and:[
+        
+        {$or: [{'child_species_short': species}, {'child_species_long': species}]},
+        {'event':/Loss/}
+        
+        ]},
+
+        {'_id':0}
+        
+        ).skip(limit*(page-1)).limit(limit).exec(callback);
+}
