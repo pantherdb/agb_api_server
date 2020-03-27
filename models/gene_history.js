@@ -78,7 +78,7 @@ module.exports.getLossGenes = (species, page, limit, callback) => {
         
         ]},
 
-        {'_id':0}
+        {'_id':0,"child_gene_ptn":0}
         
         ).skip(limit*(page-1)).limit(limit).exec(callback);
 }
