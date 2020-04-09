@@ -352,18 +352,25 @@ router.get('/denovo/:species', (req, res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    geneHistory.getDeNovoGenes(species, page, limit, (err, lists) => {
+    geneHistory.getDeNovoGeneCount(species, (err, totalCount) => {
         if (err) {
-            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+            res.json({ success: false, message: `Failed to get the denovo gene count. Error: ${err}` });
         }
         else {
-            //console.log(lists);
-            var uniqueItems = [...new Set(lists)];
-            var total = uniqueItems.length;
-            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
-            res.end();
+            geneHistory.getDeNovoGenes(species, page, limit, (err, lists) => {
+                if (err) {
+                    res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+                }
+                else {
+                    //console.log(lists);
+                    var uniqueItems = [...new Set(lists)];
+                    res.write(JSON.stringify({ success: true, count: totalCount, lists: uniqueItems }, null, 2));
+                    res.end();
+                }
+            });
         }
     });
+    
 });
 
 router.get('/horizontal-transfer/:species', (req, res) => {
