@@ -315,6 +315,24 @@ router.get('/direct-inherited/:parspecies/:chspecies', (req, res) => {
     var chspecies = req.params.chspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
+    geneHistory.getDirectInheritedGeneCount(parspecies, chspecies, (err, totalCount) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to get the directly inherited gene count. Error: ${err}` });
+        }
+        else {
+            geneHistory.getDirectInheritedGenes(parspecies, chspecies, page, limit, (err, lists) => {
+                if (err) {
+                    res.json({ success: false, message: `Failed to load all directly inherited gene lists. Error: ${err}` });
+                }
+                else {
+                    //console.log(lists);
+                    var uniqueItems = [...new Set(lists)];
+                    res.write(JSON.stringify({ success: true, count: totalCount, lists: uniqueItems }, null, 2));
+                    res.end();
+                }
+            });
+        }
+    });
     geneHistory.getDirectInheritedGenes(parspecies, chspecies,page, limit, (err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
@@ -334,16 +352,22 @@ router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
     var chspecies = req.params.chspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    geneHistory.getDuplicatedGenes(parspecies, chspecies,page, limit, (err, lists) => {
+    geneHistory.getDuplicatedGeneCount(parspecies, chspecies, (err, totalCount) => {
         if (err) {
-            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+            res.json({ success: false, message: `Failed to get the duplicated gene count. Error: ${err}` });
         }
         else {
-            //console.log(lists);
-            var uniqueItems = [...new Set(lists)];
-            var total = uniqueItems.length;
-            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
-            res.end();
+            geneHistory.getDuplicatedGenes(parspecies, chspecies, page, limit, (err, lists) => {
+                if (err) {
+                    res.json({ success: false, message: `Failed to load all duplicated gene lists. Error: ${err}` });
+                }
+                else {
+                    //console.log(lists);
+                    var uniqueItems = [...new Set(lists)];
+                    res.write(JSON.stringify({ success: true, count: totalCount, lists: uniqueItems }, null, 2));
+                    res.end();
+                }
+            });
         }
     });
 });
@@ -359,7 +383,7 @@ router.get('/denovo/:species', (req, res) => {
         else {
             geneHistory.getDeNovoGenes(species, page, limit, (err, lists) => {
                 if (err) {
-                    res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+                    res.json({ success: false, message: `Failed to load all denovo gene lists. Error: ${err}` });
                 }
                 else {
                     //console.log(lists);
@@ -377,16 +401,23 @@ router.get('/horizontal-transfer/:species', (req, res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    geneHistory.getHorizTransGenes(species, page, limit, (err, lists) => {
+    geneHistory.getHorizTransGeneCount(species,(err, totalCount) =>{
         if (err) {
-            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+            res.json({ success: false, message: `Failed to get horizontal transfer gene count. Error: ${err}` });
         }
         else {
-            //console.log(lists);
-            var uniqueItems = [...new Set(lists)];
-            var total = uniqueItems.length;
-            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
-            res.end();
+            geneHistory.getHorizTransGenes(species, page, limit, (err, lists) => {
+                if (err) {
+                    res.json({ success: false, message: `Failed to load all horizontal transfer gene lists. Error: ${err}` });
+                }
+                else {
+                    //console.log(lists);
+                    var uniqueItems = [...new Set(lists)];
+                    
+                    res.write(JSON.stringify({ success: true, count: totalCount, lists: uniqueItems }, null, 2));
+                    res.end();
+                }
+            });
         }
     });
 });
@@ -395,18 +426,26 @@ router.get('/loss/:species', (req, res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    geneHistory.getLossGenes(species, page, limit, (err, lists) => {
+    geneHistory.getLossGeneCount(species,(err, totalCount) =>{
         if (err) {
-            res.json({ success: false, message: `Failed to load all extant lists. Error: ${err}` });
+            res.json({ success: false, message: `Failed to get loss gene count. Error: ${err}` });
         }
         else {
-            //console.log(lists);
-            var uniqueItems = [...new Set(lists)];
-            var total = uniqueItems.length;
-            res.write(JSON.stringify({ success: true, count: total, lists: uniqueItems }, null, 2));
-            res.end();
+            geneHistory.getLossGenes(species, page, limit, (err, lists) => {
+                if (err) {
+                    res.json({ success: false, message: `Failed to load all loss gene lists. Error: ${err}` });
+                }
+                else {
+                    //console.log(lists);
+                    var uniqueItems = [...new Set(lists)];
+                    
+                    res.write(JSON.stringify({ success: true, count: totalCount, lists: uniqueItems }, null, 2));
+                    res.end();
+                }
+            });
         }
     });
+    
 });
 
 router.get('/event-list', (req, res) => {

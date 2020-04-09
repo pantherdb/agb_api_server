@@ -27,6 +27,18 @@ module.exports.getDirectInheritedGenes = (parspecies, chspecies, page, limit, ca
         ).skip(limit*(page-1)).limit(limit).exec(callback);
 }
 
+module.exports.getDirectInheritedGeneCount = (parspecies, chspecies, page, limit, callback) => {
+	GeneHistory.find(
+        {$and:[
+        {$or: [{'parent_species_short': parspecies}, {'parent_species_long': parspecies}]},
+        {$or: [{'child_species_short': chspecies}, {'child_species_long': chspecies}]},
+        {$or: [{'event':'AncestralGene-DirectInheritanceFromOneGene'},
+         {'event':'ExtantGene-DirectInheritanceFromOneGene'}]}
+        ]}
+        
+        ).count({}).exec(callback);
+}
+
 module.exports.getDuplicatedGenes = (parspecies, chspecies, page, limit, callback) => {
 	GeneHistory.find(
         {$and:[
@@ -39,6 +51,17 @@ module.exports.getDuplicatedGenes = (parspecies, chspecies, page, limit, callbac
         {'_id':0}
         
         ).skip(limit*(page-1)).limit(limit).exec(callback);
+}
+
+module.exports.getDuplicatedGeneCount = (parspecies, chspecies, page, limit, callback) => {
+	GeneHistory.find(
+        {$and:[
+        {$or: [{'parent_species_short': parspecies}, {'parent_species_long': parspecies}]},
+        {$or: [{'child_species_short': chspecies}, {'child_species_long': chspecies}]},
+        {$or: [{'event':'AncestralGene-InheritanceByDuplication'},
+         {'event':'ExtantGene-InheritanceByDuplication'}]}
+        ]}
+        ).count({}).exec(callback);
 }
 
 module.exports.getDeNovoGenes = (species, page, limit, callback) => {
@@ -81,6 +104,17 @@ module.exports.getHorizTransGenes = (species, page, limit, callback) => {
         ).skip(limit*(page-1)).limit(limit).exec(callback);
 }
 
+module.exports.getHorizTransGeneCount = (species, page, limit, callback) => {
+	GeneHistory.find(
+        {$and:[
+        
+        {$or: [{'child_species_short': species}, {'child_species_long': species}]},
+        {'event':/GainByHorizTrans/}
+        
+        ]}
+        ).count({}).exec(callback);
+}
+
 module.exports.getLossGenes = (species, page, limit, callback) => {
 	GeneHistory.find(
         {$and:[
@@ -93,4 +127,15 @@ module.exports.getLossGenes = (species, page, limit, callback) => {
         {'_id':0,"child_gene_ptn":0}
         
         ).skip(limit*(page-1)).limit(limit).exec(callback);
+}
+
+module.exports.getLossGeneCount = (species, page, limit, callback) => {
+	GeneHistory.find(
+        {$and:[
+        
+        {$or: [{'child_species_short': species}, {'child_species_long': species}]},
+        {'event':/Loss/}
+        
+        ]}
+        ).count({}).exec(callback);
 }
