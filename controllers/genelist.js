@@ -341,22 +341,30 @@ router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
     var chspecies = req.params.chspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    geneHistory.getDuplicatedGeneCount(parspecies, chspecies, (err, totalCount) => {
+    geneHistory.getDuplicatedChildGeneCount(parspecies, chspecies, (err, totalChildCount) => {
         if (err) {
-            res.json({ success: false, message: `Failed to get the duplicated gene count. Error: ${err}` });
+            res.json({ success: false, message: `Failed to get the duplicated child gene count. Error: ${err}` });
         }
         else {
-            geneHistory.getDuplicatedGenes(parspecies, chspecies, page, limit, (err, lists) => {
+            geneHistory.getDuplicatedParentGeneCount(parspecies, chspecies, (err, totalParentCount) => {
                 if (err) {
-                    res.json({ success: false, message: `Failed to load all duplicated gene lists. Error: ${err}` });
+                    res.json({ success: false, message: `Failed to get the duplicated parent gene count. Error: ${err}` });
                 }
                 else {
-                    //console.log(lists);
-                    var uniqueItems = [...new Set(lists)];
-                    res.write(JSON.stringify({ success: true, count: totalCount, lists: uniqueItems }, null, 2));
-                    res.end();
+                    geneHistory.getDuplicatedGenes(parspecies, chspecies, page, limit, (err, lists) => {
+                        if (err) {
+                            res.json({ success: false, message: `Failed to load all duplicated gene lists. Error: ${err}` });
+                        }
+                        else {
+                            //console.log(lists);
+                            var uniqueItems = [...new Set(lists)];
+                            res.write(JSON.stringify({ success: true, parent_gene_count: totalParentCount, child_gene_count: totalChildCount, lists: uniqueItems }, null, 2));
+                            res.end();
+                        }
+                    });
                 }
             });
+            
         }
     });
 });
