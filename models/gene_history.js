@@ -61,7 +61,7 @@ module.exports.getDuplicatedChildGeneCount = (parspecies, chspecies, callback) =
         {$or: [{'event':'AncestralGene-InheritanceByDuplication'},
          {'event':'ExtantGene-InheritanceByDuplication'}]}
         ]}
-        ).distinct('child_gene_ptn').count({}).exec(callback);
+        ).distinct('child_gene_ptn', callback);
 }
 
 module.exports.getDuplicatedParentGeneCount = (parspecies, chspecies, callback) => {
@@ -72,7 +72,7 @@ module.exports.getDuplicatedParentGeneCount = (parspecies, chspecies, callback) 
         {$or: [{'event':'AncestralGene-InheritanceByDuplication'},
          {'event':'ExtantGene-InheritanceByDuplication'}]}
         ]}
-        ).distinct('parent_gene_ptn').count({}).exec(callback);
+        ).distinct('parent_gene_ptn', callback);
 }
 
 module.exports.getDeNovoGenes = (species, page, limit, callback) => {

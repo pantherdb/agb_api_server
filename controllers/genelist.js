@@ -341,12 +341,12 @@ router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
     var chspecies = req.params.chspecies;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
-    geneHistory.getDuplicatedChildGeneCount(parspecies, chspecies, (err, totalChildCount) => {
+    geneHistory.getDuplicatedChildGeneCount(parspecies, chspecies, (err, totalChildgenes) => {
         if (err) {
             res.json({ success: false, message: `Failed to get the duplicated child gene count. Error: ${err}` });
         }
         else {
-            geneHistory.getDuplicatedParentGeneCount(parspecies, chspecies, (err, totalParentCount) => {
+            geneHistory.getDuplicatedParentGeneCount(parspecies, chspecies, (err, totalParentgenes) => {
                 if (err) {
                     res.json({ success: false, message: `Failed to get the duplicated parent gene count. Error: ${err}` });
                 }
@@ -358,7 +358,7 @@ router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
                         else {
                             //console.log(lists);
                             var uniqueItems = [...new Set(lists)];
-                            res.write(JSON.stringify({ success: true, parent_gene_count: totalParentCount, child_gene_count: totalChildCount, lists: uniqueItems }, null, 2));
+                            res.write(JSON.stringify({ success: true, parent_gene_count: totalParentgenes.length, child_gene_count: totalChildgenes.length, lists: uniqueItems }, null, 2));
                             res.end();
                         }
                     });
