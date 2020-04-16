@@ -134,6 +134,20 @@ router.get('/species-info/:species', cache('2 hours'), (req, res) => {
     })
 });
 
+router.get('/species-info-id/:id', cache('2 hours'), (req, res) => {
+    var id = req.params.id;
+    Species.getSpeciesDetailById(id, (err, lists) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to load species info. Error: ${err}` });
+        }
+        else {
+            //var totalPages = Math.ceil(totalCount / size);
+            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.end();
+        }
+    })
+});
+
 router.get('/species-list', cache('2 hours'), (req, res) => {
     Species.getSpeciesList((err, lists) => {
         if (err) {
