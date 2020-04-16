@@ -20,7 +20,7 @@ const Species = module.exports = mongoose.model('species', SpeciesSchema );
 module.exports.getSpeciesDetail = (species, callback) => {
     Species.find(
         {$or:
-            [{'id': species},
+            [{'short_name': species},
              {'long_name': species}]
         },
         {'_id':0,'conversion':0,'common_name':0}
