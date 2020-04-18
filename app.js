@@ -3,7 +3,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-//const cors = require('cors');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const genelist = require('./controllers/genelist');
@@ -27,7 +27,7 @@ const port = 3004;
 const app = express();
 
 //Middleware for CORS
-//app.use(cors());
+app.use(cors());
 
 //Middlewares for bodyparsing using both json and urlencoding
 app.use(bodyParser.urlencoded({extended:true}));
