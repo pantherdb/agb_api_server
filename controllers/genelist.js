@@ -350,7 +350,7 @@ router.get('/direct-inherited/:parspecies/:chspecies', (req, res) => {
     
 });
 
-router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
+router.get('/duplication-inherited/:parspecies/:chspecies', cache('12 hours'), (req, res) => {
     var parspecies = req.params.parspecies;
     var chspecies = req.params.chspecies;
     var page = parseInt(req.query.page);
@@ -383,7 +383,7 @@ router.get('/duplication-inherited/:parspecies/:chspecies', (req, res) => {
     });
 });
 
-router.get('/denovo/:species', (req, res) => {
+router.get('/denovo/:species', cache('12 hours'), (req, res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
@@ -408,7 +408,7 @@ router.get('/denovo/:species', (req, res) => {
     
 });
 
-router.get('/horizontal-transfer/:species', (req, res) => {
+router.get('/horizontal-transfer/:species', cache('12 hours'), (req, res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
@@ -433,7 +433,7 @@ router.get('/horizontal-transfer/:species', (req, res) => {
     });
 });
 
-router.get('/loss/:species', (req, res) => {
+router.get('/loss/:species', cache('12 hours'), (req, res) => {
     var species = req.params.species;
     var page = parseInt(req.query.page);
     var limit = parseInt(req.query.limit);
@@ -459,7 +459,7 @@ router.get('/loss/:species', (req, res) => {
     
 });
 
-router.get('/event-list', (req, res) => {
+router.get('/event-list', cache('12 hours'), (req, res) => {
     geneHistory.getAllEvent((err, lists) => {
         if (err) {
             res.json({ success: false, message: `Failed to load species list. Error: ${err}` });
