@@ -5,7 +5,7 @@ const GeneHistorySchema = mongoose.Schema({
 	child_species : String,
 });
 
-const GeneHistory = module.exports = mongoose.model('gene_history', GeneHistorySchema, 'gene_history' );
+const GeneHistory = module.exports = mongoose.model('gene_history_name', GeneHistorySchema, 'gene_history_name' );
 
 module.exports.getAllEvent = (callback) => {
 	GeneHistory.find().distinct('event').exec(callback);
