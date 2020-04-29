@@ -5,7 +5,25 @@ const GeneHistorySchema = mongoose.Schema({
 	child_species : String,
 });
 
+const GeneHistorySumSchema = mongoose.Schema({
+        event : String,
+            species_short : String,
+            species_long : String,
+            gene_number: Number
+    });
+
 const GeneHistory = module.exports = mongoose.model('gene_history_name', GeneHistorySchema, 'gene_history_name' );
+const GeneHistorySum = module.exports = mongoose.model('gene_history_summary', GeneHistorySumSchema, 'gene_history_summary' );
+
+module.exports.getGeneHistorySum = (chspecies, callback) => {
+	GeneHistorySum.find(
+                {$or: [{'species_short': chspecies}, {'species_long': chspecies}]},
+                {'_id':0}
+                        
+        ).exec(callback);
+	//console.log(parspecies);
+	//GenomeCompare.find().exec(callback);
+}
 
 module.exports.getAllEvent = (callback) => {
 	GeneHistory.find().distinct('event').exec(callback);

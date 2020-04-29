@@ -471,4 +471,17 @@ router.get('/event-list', cache('12 hours'), (req, res) => {
     })
 });
 
+router.get('/gene_history/:species', cache('12 hours'), (req, res) => {
+    var species = req.params.species;
+    geneHistory.getGeneHistorySum(species, (err, lists) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to load species list. Error: ${err}` });
+        }
+        else {
+            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.end();
+        }
+    })
+});
+
 module.exports = router;
